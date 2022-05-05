@@ -1,10 +1,15 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
+import { addIpcHandlers } from "./ipcHandlers";
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
 		height: 800,
 		width: 1200,
+		webPreferences: {
+			nodeIntegration: true,
+			preload: path.join(__dirname, "preload.js"),
+		},
 	});
 
 	console.log("process.env.NODE_ENV :", process.env.NODE_ENV);
@@ -28,6 +33,8 @@ app.on("ready", () => {
 		// dock icon is clicked and there are no other windows open.
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
 	});
+
+	addIpcHandlers();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
