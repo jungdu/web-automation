@@ -4,8 +4,8 @@ import { addIpcHandlers } from "./ipcHandlers";
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
-		height: 800,
-		width: 1200,
+		height: 1080,
+		width: 1920,
 		webPreferences: {
 			nodeIntegration: true,
 			preload: path.join(__dirname, "preload.js"),
