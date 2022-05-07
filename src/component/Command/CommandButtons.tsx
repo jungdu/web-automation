@@ -1,17 +1,17 @@
 import InputNumber from "../InputNumber";
 import React, { useState } from "react";
-import { executeCommands } from "../../util";
+import { runCommandGroup } from "../../util";
 import { useCommandsState } from "../../hooks/useCommands";
 import SaveButton from "./SaveButton";
 import UpdateButton from "./UpdateButton";
 import { Button, Flex } from "@chakra-ui/react";
 
 const CommandButtons: React.FC = () => {
-	const { commands, currentCommandGroupId } = useCommandsState();
+	const { commands, currentCommandGroupId, startUrl } = useCommandsState();
 	const [repeatCount, setRepeatCount] = useState(1);
 
 	const handleClickRepeatExecuteAllCommand = async () => {
-		await executeCommands(commands, repeatCount);
+		await runCommandGroup(startUrl, commands, repeatCount);
 	};
 
 	return (

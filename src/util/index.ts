@@ -1,5 +1,5 @@
 import { CommandData } from "../component/Command/type";
-import { clickElement, typeKeyboard } from "./ipc";
+import { clickElement, openBrowser, typeKeyboard } from "./ipc";
 
 export async function executeCommand(command: CommandData) {
 	switch (command.type) {
@@ -34,4 +34,13 @@ function delay(seconds: number) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, seconds * 1000);
 	});
+}
+
+export async function runCommandGroup(
+	startUrl: string,
+	commands: CommandData[],
+	repeatCount: number = 1
+) {
+	await openBrowser(startUrl);
+	await executeCommands(commands, repeatCount);
 }

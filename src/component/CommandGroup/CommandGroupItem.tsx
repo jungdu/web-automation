@@ -1,11 +1,11 @@
-import { CloseIcon } from "@chakra-ui/icons";
+import { CopyIcon } from "@chakra-ui/icons";
 import { Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../constants";
-import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
 import useCommands from "../../hooks/useCommands";
 import { CommandGroupData } from "../Command/type";
+import DeleteCommandGroupButton from "./DeleteCommandGroupButton";
 
 const CommandGroupItem: React.FC<{
 	commandGroup: CommandGroupData;
@@ -14,7 +14,6 @@ const CommandGroupItem: React.FC<{
 		dispatch: commandsDispatch,
 		commandsState: { currentCommandGroupId },
 	} = useCommands();
-	const commandGroupsDispatch = useCommandGroupsDispatch();
 	const navigate = useNavigate();
 
 	const handleClickItem = () => {
@@ -30,25 +29,6 @@ const CommandGroupItem: React.FC<{
 		navigate(routes.editor);
 	};
 
-	const handleClickDelete = () => {
-		if (currentCommandGroupId === commandGroup.id) {
-			commandsDispatch({
-				type: "InitCommand",
-				commandState: {
-					pageConnected: false,
-					startUrl: commandGroup.startUrl,
-					currentCommandGroupId: null,
-					commands: [],
-				},
-			});
-		}
-
-		commandGroupsDispatch({
-			type: "DeleteCommandGroup",
-			id: commandGroup.id,
-		});
-	};
-
 	return (
 		<Flex alignItems={"center"} width="100%" padding="1">
 			<Button
@@ -61,14 +41,14 @@ const CommandGroupItem: React.FC<{
 				{commandGroup.title}
 			</Button>
 			<Button
-				colorScheme={"pink"}
-				onClick={handleClickDelete}
+				onClick={() => {}}
 				flex="42px 0 0"
-				variant={"outline"}
+				variant={"ghost"}
 				marginLeft="1"
 			>
-				<CloseIcon />
+				<CopyIcon />
 			</Button>
+			<DeleteCommandGroupButton commandGroup={commandGroup} />
 		</Flex>
 	);
 };
