@@ -3,9 +3,10 @@ import { CommandData, CommandType } from "../component/Command/type";
 import produce from "immer";
 
 export type CommandState = {
-	currentCommandGroupId: string | null;
-	startUrl: string;
 	commands: CommandData[];
+	currentCommandGroupId: string | null;
+	pageConnected: boolean;
+	startUrl: string;
 };
 interface CreateCommandAction {
 	type: "CreateCommandData";
@@ -38,13 +39,19 @@ interface SetStartUrlAction {
 	startUrl: string;
 }
 
+interface SetPageConnectedAction {
+	type: "SetPageConnected";
+	pageConnected: boolean;
+}
+
 type CommandAction =
 	| CreateCommandAction
 	| ChangeCommandAction
 	| ChangeCommandTypeAction
 	| DeleteCommandAction
 	| InitCommandAction
-	| SetStartUrlAction;
+	| SetStartUrlAction
+	| SetPageConnectedAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -75,6 +82,7 @@ function getDefaultCommand(type: CommandType): CommandData {
 }
 
 const initialCommandData: CommandState = {
+	pageConnected: false,
 	startUrl: "",
 	currentCommandGroupId: null,
 	commands: [
@@ -114,8 +122,13 @@ function commandReducer(
 			return produce(state, (draft) => {
 				draft.startUrl = action.startUrl;
 			});
+		case "SetPageConnected":
+			return produce(state, (draft) => {
+				draft.pageConnected = action.pageConnected;
+			});
 		default:
-			return state;
+			// @ts-expect-error
+			throw new Error(`Invalid type of action ${action.type}`);
 	}
 }
 

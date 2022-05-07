@@ -32,6 +32,6 @@ export interface CommandGroupData {
 	createdAt: number;
 	id: string;
 	lastEditedAt?: number;
-	startUrl?: string;
+	startUrl: string;
 	title: string;
 }

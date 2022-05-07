@@ -20,13 +20,18 @@ export function addIpcHandlers() {
 	addIpcMainHandler<OpenBrowserMessage>(
 		"openBrowser",
 		async (e, { startUrl }) => {
-			console.log("startUrl :", startUrl);
 			const browser = await chromium.launch({
 				headless: false,
 			});
 			const context = await browser.newContext();
 			page = await context.newPage();
-			await page.goto(startUrl);
+
+			try {
+				await page.goto(startUrl);
+			} catch (e) {
+				browser.close();
+				throw new Error("Invalid startUrl");
+			}
 		}
 	);
 

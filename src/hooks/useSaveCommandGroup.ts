@@ -7,15 +7,15 @@ export default function useSaveCommandGroup() {
 
 	const commandGroupsDispatch = useCommandGroupsDispatch();
 
-	return function ({ title, startUrl }: { title: string; startUrl?: string }) {
+	return function ({ title, startUrl }: { title: string; startUrl: string }) {
 		commandGroupsDispatch({
 			type: "CreateCommandGroup",
 			commandGroupData: {
-				id: nanoid(),
 				commands,
-				title,
-				startUrl,
 				createdAt: new Date().getDate(),
+				id: nanoid(),
+				startUrl,
+				title,
 			},
 		});
 	};

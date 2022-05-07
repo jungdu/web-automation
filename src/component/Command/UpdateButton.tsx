@@ -4,7 +4,7 @@ import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
 import { useCommandsState } from "../../hooks/useCommands";
 
 const UpdateButton: React.FC = () => {
-	const { commands, currentCommandGroupId } = useCommandsState();
+	const { commands, currentCommandGroupId, startUrl } = useCommandsState();
 	const dispatch = useCommandGroupsDispatch();
 	const toast = useToast();
 
@@ -15,6 +15,7 @@ const UpdateButton: React.FC = () => {
 				commandGroupId: currentCommandGroupId,
 				commands,
 				lastEditedAt: new Date().getDate(),
+				startUrl,
 			});
 			toast({
 				title: "업데이트 완료",

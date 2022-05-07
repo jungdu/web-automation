@@ -7,11 +7,18 @@ import {
 	InputLeftAddon,
 } from "@chakra-ui/react";
 import React from "react";
-import useInput from "../../hooks/useInput";
+import useCommands from "../../hooks/useCommands";
 import { openBrowser } from "../../util/ipc";
 
 const OpenBrowserRow: React.FC = () => {
-	const { value, handleChange } = useInput();
+	const { commandsState, dispatch } = useCommands();
+
+	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+		dispatch({
+			type: "SetStartUrl",
+			startUrl: e.currentTarget.value,
+		});
+	};
 
 	return (
 		<Flex>
@@ -21,14 +28,18 @@ const OpenBrowserRow: React.FC = () => {
 					type="tel"
 					placeholder="https://xxxxxx.com"
 					onChange={handleChange}
-					value={value}
+					value={commandsState.startUrl}
 				/>
 			</InputGroup>
 			<Button
 				colorScheme={"green"}
 				marginLeft="1"
 				onClick={async () => {
-					await openBrowser(value);
+					await openBrowser(commandsState.startUrl);
+					dispatch({
+						type: "SetPageConnected",
+						pageConnected: true,
+					});
 				}}
 				flex="42px 0 0"
 			>

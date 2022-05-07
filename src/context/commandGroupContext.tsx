@@ -21,6 +21,7 @@ interface InitCommandGroupsAction {
 
 interface UpdateCommandGroupAction {
 	type: "UpdateCommandGroups";
+	startUrl: string;
 	commandGroupId: string;
 	commands: CommandGroupData["commands"];
 	lastEditedAt: CommandGroupData["lastEditedAt"];
@@ -50,6 +51,7 @@ function commandGroupReducer(
 			return produce(state, (draft) => {
 				draft[groupIndex].commands = action.commands;
 				draft[groupIndex].lastEditedAt = action.lastEditedAt;
+				draft[groupIndex].startUrl = action.startUrl;
 			});
 		default:
 			return state;

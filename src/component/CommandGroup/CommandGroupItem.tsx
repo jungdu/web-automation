@@ -1,10 +1,10 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../constants";
 import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
-import useCommands, { useCommandsDispatch } from "../../hooks/useCommands";
+import useCommands from "../../hooks/useCommands";
 import { CommandGroupData } from "../Command/type";
 
 const CommandGroupItem: React.FC<{
@@ -21,7 +21,8 @@ const CommandGroupItem: React.FC<{
 		commandsDispatch({
 			type: "InitCommand",
 			commandState: {
-				startUrl: "",
+				pageConnected: false,
+				startUrl: commandGroup.startUrl,
 				currentCommandGroupId: commandGroup.id,
 				commands: commandGroup.commands,
 			},
@@ -34,7 +35,8 @@ const CommandGroupItem: React.FC<{
 			commandsDispatch({
 				type: "InitCommand",
 				commandState: {
-					startUrl: "",
+					pageConnected: false,
+					startUrl: commandGroup.startUrl,
 					currentCommandGroupId: null,
 					commands: [],
 				},

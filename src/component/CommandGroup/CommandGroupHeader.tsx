@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ const CommandGroupHeader: React.FC = () => {
 		commandsDispatch({
 			type: "InitCommand",
 			commandState: {
+				pageConnected: false,
 				currentCommandGroupId: null,
 				startUrl: "",
 				commands: [],
@@ -33,6 +35,9 @@ const CommandGroupHeader: React.FC = () => {
 				명령어 추가
 			</Button>
 			<Button marginLeft="1">가져오기</Button>
+			<Button marginLeft="auto" onClick={handleClickBack}>
+				<ArrowBackIcon fontSize={"2xl"} />
+			</Button>
 		</Flex>
 	);
 };

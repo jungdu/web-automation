@@ -5,13 +5,16 @@ import { executeCommand } from "../../util";
 import CommandItemInput from "./CommandItemInput";
 import CommandTypeSelector from "./CommandTypeSelector";
 import { CommandData } from "./type";
-import { useCommandsDispatch } from "../../hooks/useCommands";
+import useCommands from "../../hooks/useCommands";
 
 const CommandItem: React.FC<{
 	command: CommandData;
 	index: number;
 }> = ({ command, index }) => {
-	const dispatch = useCommandsDispatch();
+	const {
+		commandsState: { pageConnected },
+		dispatch,
+	} = useCommands();
 
 	const handleClickDelete = () => {
 		dispatch({
@@ -33,6 +36,7 @@ const CommandItem: React.FC<{
 				marginLeft="1"
 				onClick={handleClickExecute}
 				flex="42px 0 0"
+				disabled={!pageConnected}
 			>
 				<ChevronRightIcon w={8} h={8} />
 			</Button>
