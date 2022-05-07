@@ -21,6 +21,7 @@ const CommandGroupItem: React.FC<{
 		commandsDispatch({
 			type: "InitCommand",
 			commandState: {
+				startUrl: "",
 				currentCommandGroupId: commandGroup.id,
 				commands: commandGroup.commands,
 			},
@@ -33,6 +34,7 @@ const CommandGroupItem: React.FC<{
 			commandsDispatch({
 				type: "InitCommand",
 				commandState: {
+					startUrl: "",
 					currentCommandGroupId: null,
 					commands: [],
 				},

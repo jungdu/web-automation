@@ -1,11 +1,21 @@
 import { CommandData } from "../component/Command/type";
+import { clickElement, typeKeyboard } from "./ipc";
 
 export async function executeCommand(command: CommandData) {
-	if (command.type === "delay") {
-		await delay(command.seconds);
-		return true;
+	switch (command.type) {
+		case "delay":
+			await delay(command.seconds);
+			return true;
+		case "click":
+			await clickElement(command.selector);
+			return true;
+		case "input":
+			await clickElement(command.selector);
+			await typeKeyboard(command.value);
+			return true;
+		default:
+			return false;
 	}
-
 	// TODO
 }
 

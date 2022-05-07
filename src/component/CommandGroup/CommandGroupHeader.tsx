@@ -1,5 +1,4 @@
-import { AddIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { Button, Center, Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../constants";
@@ -18,6 +17,7 @@ const CommandGroupHeader: React.FC = () => {
 			type: "InitCommand",
 			commandState: {
 				currentCommandGroupId: null,
+				startUrl: "",
 				commands: [],
 			},
 		});
