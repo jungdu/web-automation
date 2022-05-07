@@ -1,13 +1,14 @@
 import { useCommandGroupsDispatch } from "./useCommandGroups";
 import { useCommandsState } from "./useCommands";
 import { nanoid } from "nanoid";
+import { useToast } from "@chakra-ui/react";
 
 export default function useSaveCommandGroup() {
-	const { commands } = useCommandsState();
-
+	const { commands, startUrl } = useCommandsState();
 	const commandGroupsDispatch = useCommandGroupsDispatch();
+	const toast = useToast();
 
-	return function ({ title, startUrl }: { title: string; startUrl: string }) {
+	return function (title: string) {
 		commandGroupsDispatch({
 			type: "CreateCommandGroup",
 			commandGroupData: {
@@ -17,6 +18,11 @@ export default function useSaveCommandGroup() {
 				startUrl,
 				title,
 			},
+		});
+		toast({
+			title: "저장되었습니다",
+			status: "success",
+			duration: 1000,
 		});
 	};
 }

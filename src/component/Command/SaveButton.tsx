@@ -1,15 +1,21 @@
-import { Button } from "@chakra-ui/react";
+import {
+	Button,
+	Flex,
+	Heading,
+	Input,
+	InputGroup,
+	InputLeftAddon,
+} from "@chakra-ui/react";
 import React from "react";
 import {
 	Modal,
 	ModalOverlay,
 	ModalContent,
-	Input,
 	ModalFooter,
 	useDisclosure,
-	Heading,
 	Box,
 	useToast,
+	Text,
 } from "@chakra-ui/react";
 import useInput from "../../hooks/useInput";
 import useSaveCommandGroup from "../../hooks/useSaveCommandGroup";
@@ -18,32 +24,24 @@ import { routes } from "../../constants";
 
 const SaveButton: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { value: title, handleChange: handleChangeTitle } = useInput();
-	const { value: startUrl, handleChange: handleChangeStartUrl } = useInput();
 	const saveCommandGroup = useSaveCommandGroup();
 	const navigate = useNavigate();
+	const { value: title, handleChange: handleTitleChange } = useInput();
 	const toast = useToast();
 
 	const handleClickSave = () => {
-		if (title) {
-			saveCommandGroup({
-				title,
-				startUrl,
-			});
+		if (!title) {
 			toast({
-				title: "저장되었습니다",
-				status: "success",
-				duration: 1000,
-			});
-			navigate(routes.group);
-			onClose();
-		} else {
-			toast({
-				title: "타이틀을 입력해주세요",
+				title: "타이틀을 입력해주세요.",
 				status: "error",
 				duration: 1000,
 			});
+			return;
 		}
+
+		saveCommandGroup(title);
+		navigate(routes.group);
+		onClose();
 	};
 
 	return (
@@ -59,25 +57,13 @@ const SaveButton: React.FC = () => {
 				<ModalOverlay />
 				<ModalContent>
 					<Box paddingX={6} paddingTop={6}>
-						<Heading size="sm" color="gray.600" marginBottom="1">
-							타이틀
+						<Heading fontSize={"2xl"} color="gray.600">
+							저장하시겠습니까?
 						</Heading>
-						<Input
-							marginBottom="3"
-							value={title}
-							onChange={handleChangeTitle}
-							errorBorderColor="red.200"
-							isInvalid={!title}
-						/>
-						<Heading size="sm" color="gray.600" marginBottom="1">
-							시작 주소
-						</Heading>
-						<Input
-							marginBottom="3"
-							placeholder="https://xxx.com"
-							value={startUrl}
-							onChange={handleChangeStartUrl}
-						/>
+						<InputGroup marginTop="5" marginBottom="2">
+							<InputLeftAddon children="타이틀" />
+							<Input type="tel" onChange={handleTitleChange} value={title} />
+						</InputGroup>
 					</Box>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={handleClickSave}>
