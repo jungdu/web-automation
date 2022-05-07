@@ -21,6 +21,7 @@ const UpdateButton: React.FC = () => {
 				title: "업데이트 완료",
 				status: "success",
 				duration: 1000,
+				position: "bottom",
 			});
 		}
 	};

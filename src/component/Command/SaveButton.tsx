@@ -35,6 +35,7 @@ const SaveButton: React.FC = () => {
 				title: "타이틀을 입력해주세요.",
 				status: "error",
 				duration: 1000,
+				position: "bottom",
 			});
 			return;
 		}

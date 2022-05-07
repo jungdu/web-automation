@@ -8,7 +8,7 @@ const CommandTitle: React.FC = () => {
 	return (
 		<Heading fontSize={"2xl"} marginLeft="2" color="gray.600">
 			{(editingCommandGroup && editingCommandGroup.title) ||
-				"저장되지 않은 명령어"}
+				"저장되지 않은 작업"}
 		</Heading>
 	);
 };

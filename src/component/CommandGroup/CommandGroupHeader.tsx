@@ -29,10 +29,10 @@ const CommandGroupHeader: React.FC = () => {
 	return (
 		<Flex alignItems={"center"} marginBottom={"1"}>
 			<Heading size="lg" color="gray.600">
-				명령어 리스트
+				자동화 리스트
 			</Heading>
 			<Button marginLeft="4" colorScheme={"blue"} onClick={handleClickCreate}>
-				명령어 추가
+				추가
 			</Button>
 			<Button marginLeft="1">가져오기</Button>
 			<Button marginLeft="auto" onClick={handleClickBack}>

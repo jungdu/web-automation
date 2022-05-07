@@ -23,6 +23,7 @@ export default function useSaveCommandGroup() {
 			title: "저장되었습니다",
 			status: "success",
 			duration: 1000,
+			position: "bottom",
 		});
 	};
 }
