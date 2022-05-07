@@ -6,7 +6,7 @@ const CommandTitle: React.FC = () => {
 	const editingCommandGroup = useEditingCommandGroup();
 
 	return (
-		<Heading fontSize={"2xl"} marginLeft="2" color="gray.600">
+		<Heading size={"lg"} color="gray.600">
 			{(editingCommandGroup && editingCommandGroup.title) ||
 				"저장되지 않은 작업"}
 		</Heading>

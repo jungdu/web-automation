@@ -10,7 +10,7 @@ const CommandList: React.FC = () => {
 	return (
 		<>
 			<Flex alignItems={"center"} marginTop="3" marginBottom="3">
-				<Heading size="lg" color="gray.600">
+				<Heading size="md" color="gray.600">
 					동작 리스트
 				</Heading>
 				<CreateCommandButton />
