@@ -1,4 +1,4 @@
-import { CommandData } from "../component/Command/type";
+import { CommandData, CommandGroupData } from "../component/Command/type";
 import { clickElement, openBrowser, typeKeyboard } from "./ipc";
 
 export async function executeCommand(command: CommandData) {
@@ -43,4 +43,25 @@ export async function runCommandGroup(
 ) {
 	await openBrowser(startUrl);
 	await executeCommands(commands, repeatCount);
+}
+
+export function serializeCommandGroupData(
+	commandGroupData: CommandGroupData
+): string {
+	const { commands, startUrl, title } = commandGroupData;
+	return JSON.stringify(
+		{
+			startUrl,
+			title,
+			commands,
+		},
+		null,
+		2
+	);
+}
+
+export function deserializeCommandGroupData(
+	data: string
+): Pick<CommandGroupData, "startUrl" | "title" | "commands"> {
+	return JSON.parse(data);
 }

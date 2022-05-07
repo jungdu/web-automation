@@ -58,7 +58,7 @@ const SaveButton: React.FC = () => {
 				<ModalOverlay />
 				<ModalContent>
 					<Box paddingX={6} paddingTop={6}>
-						<Heading fontSize={"2xl"} color="gray.600">
+						<Heading size="md" color="gray.600">
 							저장하시겠습니까?
 						</Heading>
 						<InputGroup marginTop="5" marginBottom="2">

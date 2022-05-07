@@ -15,7 +15,7 @@ function App() {
 						<Routes>
 							<Route
 								path={routes.home}
-								element={<Navigate to={routes.editor} />}
+								element={<Navigate to={routes.group} />}
 							></Route>
 							<Route path={routes.editor} element={<Command />} />
 							<Route path={routes.group} element={<CommandGroup />} />

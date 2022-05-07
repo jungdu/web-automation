@@ -59,7 +59,7 @@ const DeleteCommandGroupButton: React.FC<{
 				<ModalOverlay />
 				<ModalContent>
 					<Box paddingX={6} paddingTop={6} marginBottom="4">
-						<Heading fontSize={"2xl"} color="gray.600">
+						<Heading size="md" color="gray.600">
 							<Text display={"inline"} color="blue.600">
 								{commandGroup.title}
 							</Text>

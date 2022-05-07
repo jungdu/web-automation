@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../constants";
 import { useCommandsDispatch } from "../../hooks/useCommands";
+import ImportCommandGroupButton from "./ImportCommandGroupButton";
 
 const CommandGroupHeader: React.FC = () => {
 	const commandsDispatch = useCommandsDispatch();
@@ -34,7 +35,7 @@ const CommandGroupHeader: React.FC = () => {
 			<Button marginLeft="4" colorScheme={"blue"} onClick={handleClickCreate}>
 				추가
 			</Button>
-			<Button marginLeft="1">가져오기</Button>
+			<ImportCommandGroupButton />
 			<Button marginLeft="auto" onClick={handleClickBack}>
 				<ArrowBackIcon fontSize={"2xl"} />
 			</Button>
