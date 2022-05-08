@@ -21,7 +21,7 @@ const OpenBrowserRow: React.FC = () => {
 	};
 
 	return (
-		<Flex>
+		<Flex marginTop="1">
 			<InputGroup marginBottom="2">
 				<InputLeftAddon children="시작 URL" />
 				<Input

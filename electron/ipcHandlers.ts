@@ -38,7 +38,9 @@ export function addIpcHandlers() {
 	addIpcMainHandler<ClickElementMessage>(
 		"clickElement",
 		async (e, { selector }) => {
-			await page.click(selector);
+			await page.click(selector, {
+				timeout: 10000,
+			});
 		}
 	);
 

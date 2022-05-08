@@ -21,11 +21,17 @@ export async function executeCommand(command: CommandData) {
 
 export async function executeCommands(
 	commands: CommandData[],
-	repeatCount: number
+	repeatCount: number,
+	callbacks?: {
+		onCommandItemSuccess?: (repeatIdx: number, commandIdx: number) => void;
+	}
 ) {
-	for (const idx of new Array(repeatCount).fill(0)) {
-		for (const command of commands) {
+	for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
+		for (const [itemIdx, command] of commands.entries()) {
 			await executeCommand(command);
+			callbacks &&
+				callbacks.onCommandItemSuccess &&
+				callbacks.onCommandItemSuccess(repeatIdx, itemIdx);
 		}
 	}
 }

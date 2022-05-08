@@ -1,22 +1,24 @@
-import InputNumber from "../InputNumber";
 import React, { useState } from "react";
-import { runCommandGroup } from "../../util";
 import { useCommandsState } from "../../hooks/useCommands";
 import SaveButton from "./SaveButton";
 import UpdateButton from "./UpdateButton";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Spinner } from "@chakra-ui/react";
+import { useRunCommandGroup } from "./hooks/useRunCommandGroup";
+import { useCommandProgressState } from "../../hooks/useCommandProgress";
 
 const CommandButtons: React.FC = () => {
-	const { commands, currentCommandGroupId, startUrl } = useCommandsState();
+	const { currentCommandGroupId } = useCommandsState();
+	const { running } = useCommandProgressState();
+	const runCommandGroup = useRunCommandGroup();
 	const [repeatCount, setRepeatCount] = useState(1);
 
 	const handleClickRepeatExecuteAllCommand = async () => {
-		await runCommandGroup(startUrl, commands, repeatCount);
+		runCommandGroup(repeatCount);
 	};
 
 	return (
-		<Flex width="100%" marginBottom={"3"}>
-			<InputNumber
+		<Flex width="100%" marginBottom={"2"}>
+			{/* <InputNumber
 				min={1}
 				step={1}
 				flex="80px 0 0"
@@ -26,13 +28,14 @@ const CommandButtons: React.FC = () => {
 					const nextCount = Number.parseInt(event);
 					setRepeatCount(nextCount >= 1 ? nextCount : 1);
 				}}
-			/>
+			/> */}
 			<Button
 				colorScheme={"green"}
 				onClick={handleClickRepeatExecuteAllCommand}
 				marginRight={2}
+				disabled={running}
 			>
-				실행
+				{running ? <Spinner /> : "실행"}
 			</Button>
 			{currentCommandGroupId ? <UpdateButton /> : <SaveButton />}
 		</Flex>
