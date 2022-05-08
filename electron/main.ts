@@ -2,10 +2,14 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import { addIpcHandlers } from "./ipcHandlers";
 
+function isDev() {
+	return process.env.NODE_ENV === "development";
+}
+
 function createWindow() {
 	const mainWindow = new BrowserWindow({
-		height: 1080,
-		width: 1920,
+		height: 1000,
+		width: isDev() ? 1920 : 800,
 		webPreferences: {
 			nodeIntegration: true,
 			preload: path.join(__dirname, "preload.js"),
@@ -13,13 +17,12 @@ function createWindow() {
 	});
 
 	console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-	if (process.env.NODE_ENV === "development") {
+	if (isDev()) {
 		mainWindow.loadURL("http://localhost:3000/");
+		mainWindow.webContents.openDevTools();
 	} else {
 		mainWindow.loadFile(path.join(__dirname, "../client/index.html"));
 	}
-
-	mainWindow.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished
