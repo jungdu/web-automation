@@ -1,4 +1,5 @@
 import { useToast } from "@chakra-ui/react";
+import { useRef } from "react";
 import { useCommandProgressDispatch } from "../../../hooks/useCommandProgress";
 import { useCommandsState } from "../../../hooks/useCommands";
 import { executeCommands } from "../../../util";
@@ -17,8 +18,9 @@ export function useRunCommandGroup() {
 			},
 		});
 		try {
-			await openBrowser(startUrl);
-			await executeCommands(commands, repeatCount, {
+			const { id } = await openBrowser(startUrl);
+
+			await executeCommands(id, commands, repeatCount, {
 				onCommandItemSuccess: (_, itemIdx) => {
 					dispatch({
 						type: "UpdateProgress",

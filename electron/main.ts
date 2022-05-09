@@ -1,40 +1,18 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import * as path from "path";
+import { app, BrowserWindow } from "electron";
 import { addIpcHandlers } from "./ipcHandlers";
-
-function isDev() {
-	return process.env.NODE_ENV === "development";
-}
-
-function createWindow() {
-	const mainWindow = new BrowserWindow({
-		height: 1000,
-		width: isDev() ? 1920 : 800,
-		webPreferences: {
-			nodeIntegration: true,
-			preload: path.join(__dirname, "preload.js"),
-		},
-	});
-
-	console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-	if (isDev()) {
-		mainWindow.loadURL("http://localhost:3000/");
-		mainWindow.webContents.openDevTools();
-	} else {
-		mainWindow.loadFile(path.join(__dirname, "../client/index.html"));
-	}
-}
+import { mainWindowCtrl } from "./MainWindowCtrl";
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-	createWindow();
+	mainWindowCtrl.createWindow();
 
 	app.on("activate", function () {
 		// On macOS it's common to re-create a window in the app when the
 		// dock icon is clicked and there are no other windows open.
-		if (BrowserWindow.getAllWindows().length === 0) createWindow();
+		if (BrowserWindow.getAllWindows().length === 0)
+			mainWindowCtrl.createWindow();
 	});
 
 	addIpcHandlers();

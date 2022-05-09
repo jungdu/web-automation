@@ -1,3 +1,4 @@
+import { getCloseBrowserEventName } from "../../common/eventName";
 import {
 	ClickElementMessage,
 	IpcMessage,
@@ -7,16 +8,28 @@ import {
 
 const ipcRenderer = window.ipcRenderer;
 
-export async function openBrowser(startUrl: string) {
-	return await invoke<OpenBrowserMessage>("openBrowser", { startUrl });
+export async function openBrowser(startUrl: string, onClose?: () => void) {
+	const { id } = await invoke<OpenBrowserMessage>("openBrowser", { startUrl });
+
+	if (onClose) {
+		ipcRenderer.once(getCloseBrowserEventName(id), onClose);
+	}
+
+	return { id };
 }
 
-export async function clickElement(selector: string) {
-	return await invoke<ClickElementMessage>("clickElement", { selector });
+export async function clickElement(browserId: string, selector: string) {
+	return await invoke<ClickElementMessage>("clickElement", {
+		browserId,
+		selector,
+	});
 }
 
-export async function typeKeyboard(text: string) {
-	return await invoke<TypeKeyboardMessage>("typeKeyboardMessage", { text });
+export async function typeKeyboard(browserId: string, text: string) {
+	return await invoke<TypeKeyboardMessage>("typeKeyboardMessage", {
+		browserId,
+		text,
+	});
 }
 
 async function invoke<T extends IpcMessage>(

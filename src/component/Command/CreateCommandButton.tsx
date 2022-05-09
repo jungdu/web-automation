@@ -1,5 +1,5 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
+import { Button, Tooltip } from "@chakra-ui/react";
 import React from "react";
 import useCommands from "../../hooks/useCommands";
 
@@ -11,14 +11,16 @@ const CreateCommandButton: React.FC = () => {
 	};
 
 	return (
-		<Button
-			colorScheme={"blue"}
-			onClick={handleClickCreateCommand}
-			marginLeft="2"
-			size={"sm"}
-		>
-			<AddIcon fontSize={"lg"} />
-		</Button>
+		<Tooltip label="동작 추가">
+			<Button
+				colorScheme={"blue"}
+				onClick={handleClickCreateCommand}
+				marginLeft="2"
+				size={"sm"}
+			>
+				<AddIcon fontSize={"lg"} />
+			</Button>
+		</Tooltip>
 	);
 };
 

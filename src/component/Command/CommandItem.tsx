@@ -12,7 +12,7 @@ const CommandItem: React.FC<{
 	index: number;
 }> = ({ command, index }) => {
 	const {
-		commandsState: { pageConnected },
+		commandsState: { connectedBrowserId },
 		dispatch,
 	} = useCommands();
 
@@ -24,7 +24,11 @@ const CommandItem: React.FC<{
 	};
 
 	const handleClickExecute = () => {
-		executeCommand(command);
+		if (connectedBrowserId) {
+			executeCommand(connectedBrowserId, command);
+		} else {
+			throw new Error("Require connected browser to execute");
+		}
 	};
 
 	return (
@@ -36,7 +40,7 @@ const CommandItem: React.FC<{
 				marginLeft="1"
 				onClick={handleClickExecute}
 				flex="42px 0 0"
-				disabled={!pageConnected}
+				disabled={!connectedBrowserId}
 			>
 				<ChevronRightIcon w={8} h={8} />
 			</Button>

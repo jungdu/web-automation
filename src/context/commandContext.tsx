@@ -5,7 +5,7 @@ import produce from "immer";
 export type CommandState = {
 	commands: CommandData[];
 	currentCommandGroupId: string | null;
-	pageConnected: boolean;
+	connectedBrowserId: string | null;
 	startUrl: string;
 };
 interface CreateCommandAction {
@@ -39,9 +39,9 @@ interface SetStartUrlAction {
 	startUrl: string;
 }
 
-interface SetPageConnectedAction {
-	type: "SetPageConnected";
-	pageConnected: boolean;
+interface SetConnectedBrowserIdAction {
+	type: "SetConnectedBrowserId";
+	connectedBrowserId: string | null;
 }
 
 type CommandAction =
@@ -51,7 +51,7 @@ type CommandAction =
 	| DeleteCommandAction
 	| InitCommandAction
 	| SetStartUrlAction
-	| SetPageConnectedAction;
+	| SetConnectedBrowserIdAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -82,7 +82,7 @@ function getDefaultCommand(type: CommandType): CommandData {
 }
 
 const initialCommandData: CommandState = {
-	pageConnected: false,
+	connectedBrowserId: null,
 	startUrl: "",
 	currentCommandGroupId: null,
 	commands: [
@@ -122,9 +122,9 @@ function commandReducer(
 			return produce(state, (draft) => {
 				draft.startUrl = action.startUrl;
 			});
-		case "SetPageConnected":
+		case "SetConnectedBrowserId":
 			return produce(state, (draft) => {
-				draft.pageConnected = action.pageConnected;
+				draft.connectedBrowserId = action.connectedBrowserId;
 			});
 		default:
 			// @ts-expect-error

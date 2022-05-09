@@ -3,12 +3,15 @@ export interface OpenBrowserMessage {
 	param: {
 		startUrl: string;
 	};
-	return: void;
+	return: {
+		id: string;
+	};
 }
 
 export interface ClickElementMessage {
 	type: "clickElement";
 	param: {
+		browserId: string;
 		selector: string;
 	};
 	return: void;
@@ -17,6 +20,7 @@ export interface ClickElementMessage {
 export interface TypeKeyboardMessage {
 	type: "typeKeyboardMessage";
 	param: {
+		browserId: string;
 		text: string;
 	};
 	return: void;

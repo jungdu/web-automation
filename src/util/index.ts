@@ -1,17 +1,17 @@
 import { CommandData, CommandGroupData } from "../component/Command/type";
 import { clickElement, openBrowser, typeKeyboard } from "./ipc";
 
-export async function executeCommand(command: CommandData) {
+export async function executeCommand(browserId: string, command: CommandData) {
 	switch (command.type) {
 		case "delay":
 			await delay(command.seconds);
 			return true;
 		case "click":
-			await clickElement(command.selector);
+			await clickElement(browserId, command.selector);
 			return true;
 		case "input":
-			await clickElement(command.selector);
-			await typeKeyboard(command.value);
+			await clickElement(browserId, command.selector);
+			await typeKeyboard(browserId, command.value);
 			return true;
 		default:
 			return false;
@@ -20,6 +20,7 @@ export async function executeCommand(command: CommandData) {
 }
 
 export async function executeCommands(
+	browserId: string,
 	commands: CommandData[],
 	repeatCount: number,
 	callbacks?: {
@@ -28,7 +29,7 @@ export async function executeCommands(
 ) {
 	for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
 		for (const [itemIdx, command] of commands.entries()) {
-			await executeCommand(command);
+			await executeCommand(browserId, command);
 			callbacks &&
 				callbacks.onCommandItemSuccess &&
 				callbacks.onCommandItemSuccess(repeatIdx, itemIdx);
@@ -47,8 +48,8 @@ export async function runCommandGroup(
 	commands: CommandData[],
 	repeatCount: number = 1
 ) {
-	await openBrowser(startUrl);
-	await executeCommands(commands, repeatCount);
+	const { id } = await openBrowser(startUrl);
+	await executeCommands(id, commands, repeatCount);
 }
 
 export function serializeCommandGroupData(

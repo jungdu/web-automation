@@ -30,7 +30,7 @@ const DeleteCommandGroupButton: React.FC<{
 			commandsDispatch({
 				type: "InitCommand",
 				commandState: {
-					pageConnected: false,
+					connectedBrowserId: null,
 					startUrl: commandGroup.startUrl,
 					currentCommandGroupId: null,
 					commands: [],

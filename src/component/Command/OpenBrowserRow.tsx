@@ -1,17 +1,21 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ArrowRightIcon, ChevronRightIcon, LinkIcon } from "@chakra-ui/icons";
 import {
 	Button,
 	Flex,
 	Input,
 	InputGroup,
 	InputLeftAddon,
+	Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
 import useCommands from "../../hooks/useCommands";
 import { openBrowser } from "../../util/ipc";
 
 const OpenBrowserRow: React.FC = () => {
-	const { commandsState, dispatch } = useCommands();
+	const {
+		commandsState: { startUrl, connectedBrowserId },
+		dispatch,
+	} = useCommands();
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		dispatch({
@@ -28,23 +32,42 @@ const OpenBrowserRow: React.FC = () => {
 					type="tel"
 					placeholder="https://xxxxxx.com"
 					onChange={handleChange}
-					value={commandsState.startUrl}
+					value={startUrl}
 				/>
 			</InputGroup>
-			<Button
-				colorScheme={"green"}
-				marginLeft="1"
-				onClick={async () => {
-					await openBrowser(commandsState.startUrl);
-					dispatch({
-						type: "SetPageConnected",
-						pageConnected: true,
-					});
-				}}
-				flex="42px 0 0"
-			>
-				<ChevronRightIcon w={8} h={8} />
-			</Button>
+			<Tooltip label="동작 리스트와 연결된 브라우저 실행">
+				<Button
+					disabled={!!connectedBrowserId}
+					colorScheme={"green"}
+					marginLeft="1"
+					onClick={async () => {
+						const { id } = await openBrowser(startUrl, () => {
+							dispatch({
+								type: "SetConnectedBrowserId",
+								connectedBrowserId: null,
+							});
+						});
+						dispatch({
+							type: "SetConnectedBrowserId",
+							connectedBrowserId: id,
+						});
+					}}
+					flex="42px 0 0"
+				>
+					<LinkIcon />
+				</Button>
+			</Tooltip>
+			<Tooltip label="모든 동작 실행">
+				<Button
+					disabled={!connectedBrowserId}
+					colorScheme={"green"}
+					marginLeft="1"
+					onClick={async () => {}}
+					flex="42px 0 0"
+				>
+					<ArrowRightIcon fontSize={"md"} />
+				</Button>
+			</Tooltip>
 		</Flex>
 	);
 };

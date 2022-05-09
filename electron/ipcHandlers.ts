@@ -1,43 +1,40 @@
 import { ipcMain, IpcMainInvokeEvent } from "electron";
-import { chromium, Page } from "playwright";
 import {
 	ClickElementMessage,
 	IpcMessage,
 	OpenBrowserMessage,
 	TypeKeyboardMessage,
 } from "../common/ipcType";
+import { browserCtrl } from "./BrowserCtrl";
+import { mainWindowCtrl } from "./MainWindowCtrl";
 
 function addIpcMainHandler<T extends IpcMessage>(
 	type: T["type"],
-	handler: (event: IpcMainInvokeEvent, param: T["param"]) => T["return"]
+	handler: (
+		event: IpcMainInvokeEvent,
+		param: T["param"]
+	) => Promise<T["return"]>
 ) {
 	ipcMain.handle(type, handler);
 }
 
 export function addIpcHandlers() {
-	let page: null | Page;
-
 	addIpcMainHandler<OpenBrowserMessage>(
 		"openBrowser",
 		async (e, { startUrl }) => {
-			const browser = await chromium.launch({
-				headless: false,
-			});
-			const context = await browser.newContext();
-			page = await context.newPage();
-
-			try {
-				await page.goto(startUrl);
-			} catch (e) {
-				browser.close();
-				throw new Error("Invalid startUrl");
-			}
+			const mainWindow = mainWindowCtrl.getMainWindow();
+			mainWindow.webContents.send("ssibal");
+			const browserId = await browserCtrl.createBrowser(startUrl);
+			return {
+				id: browserId,
+			};
 		}
 	);
 
 	addIpcMainHandler<ClickElementMessage>(
 		"clickElement",
-		async (e, { selector }) => {
+		async (e, { browserId, selector }) => {
+			const page = browserCtrl.getPage(browserId);
 			await page.click(selector, {
 				timeout: 10000,
 			});
@@ -46,7 +43,8 @@ export function addIpcHandlers() {
 
 	addIpcMainHandler<TypeKeyboardMessage>(
 		"typeKeyboardMessage",
-		async (e, { text }) => {
+		async (e, { browserId, text }) => {
+			const page = browserCtrl.getPage(browserId);
 			await page.keyboard.type(text, { delay: 100 });
 		}
 	);
