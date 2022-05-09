@@ -22,7 +22,7 @@ export async function executeCommand(browserId: string, command: CommandData) {
 export async function executeCommands(
 	browserId: string,
 	commands: CommandData[],
-	repeatCount: number,
+	repeatCount: number = 1,
 	callbacks?: {
 		onCommandItemSuccess?: (repeatIdx: number, commandIdx: number) => void;
 	}

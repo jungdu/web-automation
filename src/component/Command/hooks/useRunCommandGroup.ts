@@ -1,5 +1,4 @@
 import { useToast } from "@chakra-ui/react";
-import { useRef } from "react";
 import { useCommandProgressDispatch } from "../../../hooks/useCommandProgress";
 import { useCommandsState } from "../../../hooks/useCommands";
 import { executeCommands } from "../../../util";
@@ -10,7 +9,7 @@ export function useRunCommandGroup() {
 	const dispatch = useCommandProgressDispatch();
 	const toast = useToast();
 
-	return async function (repeatCount: number) {
+	return async function (repeatCount: number = 1) {
 		dispatch({
 			type: "StartCommand",
 			payload: {

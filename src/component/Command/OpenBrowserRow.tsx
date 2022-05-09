@@ -9,11 +9,12 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import useCommands from "../../hooks/useCommands";
+import { executeCommands } from "../../util";
 import { openBrowser } from "../../util/ipc";
 
 const OpenBrowserRow: React.FC = () => {
 	const {
-		commandsState: { startUrl, connectedBrowserId },
+		commandsState: { startUrl, connectedBrowserId, commands },
 		dispatch,
 	} = useCommands();
 
@@ -62,7 +63,13 @@ const OpenBrowserRow: React.FC = () => {
 					disabled={!connectedBrowserId}
 					colorScheme={"green"}
 					marginLeft="1"
-					onClick={async () => {}}
+					onClick={() => {
+						if (!connectedBrowserId) {
+							throw new Error("Requires connectedBrowserId");
+						}
+
+						executeCommands(connectedBrowserId, commands);
+					}}
 					flex="42px 0 0"
 				>
 					<ArrowRightIcon fontSize={"md"} />
