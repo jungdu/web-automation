@@ -1,4 +1,4 @@
-import { ArrowRightIcon, ChevronRightIcon, LinkIcon } from "@chakra-ui/icons";
+import { ArrowRightIcon, LinkIcon } from "@chakra-ui/icons";
 import {
 	Button,
 	Flex,
@@ -8,9 +8,9 @@ import {
 	Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
-import useCommands from "../../hooks/useCommands";
-import { executeCommands } from "../../util";
-import { openBrowser } from "../../util/ipc";
+import useCommands from "../../../hooks/useCommands";
+import { executeCommands } from "../../../util";
+import { openBrowser } from "../../../util/ipc";
 
 const OpenBrowserRow: React.FC = () => {
 	const {
