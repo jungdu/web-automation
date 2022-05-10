@@ -31,30 +31,47 @@ const CommandItem: React.FC<{
 		}
 	};
 
+	const handleDragStart: React.DragEventHandler<HTMLDivElement> = (event) => {
+		event.dataTransfer.setData("commandItemIndex", index.toString());
+	};
+
+	const handleDrop: React.DragEventHandler<HTMLDivElement> = (e) => {
+		const from = Number.parseInt(e.dataTransfer.getData("commandItemIndex"));
+		const to = index;
+		if (from !== to) {
+			dispatch({
+				type: "MoveCommandItem",
+				from,
+				to,
+			});
+		}
+	};
+
+	const handleClickInsert = () => {
+		dispatch({
+			type: "InsertCommandItem",
+			index,
+		});
+	};
+
 	return (
 		<Box
-			marginBottom="2"
 			draggable
-			onDragStart={(event) => {
-				event.dataTransfer.setData("commandItemIndex", index.toString());
-			}}
-			onDrop={(e) => {
-				const from = Number.parseInt(
-					e.dataTransfer.getData("commandItemIndex")
-				);
-				const to = index;
-				if (from !== to) {
-					dispatch({
-						type: "MoveCommandItem",
-						from,
-						to,
-					});
-				}
-			}}
+			onDragStart={handleDragStart}
+			onDrop={handleDrop}
 			onDragOver={(event) => {
 				event.preventDefault();
 			}}
 		>
+			<Box
+				height="2"
+				margin="0 auto"
+				borderRadius={"full"}
+				_hover={{ background: "blue.400" }}
+				marginLeft="6"
+				cursor="pointer"
+				onClick={handleClickInsert}
+			/>
 			<Flex alignItems={"center"}>
 				<Box
 					color="gray.300"

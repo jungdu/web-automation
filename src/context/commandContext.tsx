@@ -50,6 +50,11 @@ interface MoveCommandItemAction {
 	to: number;
 }
 
+interface InsertCommandItemAction {
+	type: "InsertCommandItem";
+	index: number;
+}
+
 type CommandAction =
 	| CreateCommandAction
 	| ChangeCommandAction
@@ -58,7 +63,8 @@ type CommandAction =
 	| InitCommandAction
 	| SetStartUrlAction
 	| SetConnectedBrowserIdAction
-	| MoveCommandItemAction;
+	| MoveCommandItemAction
+	| InsertCommandItemAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -100,6 +106,8 @@ const initialCommandData: CommandState = {
 	],
 };
 
+const defaultCommandItem: CommandData = { type: "click", selector: "" };
+
 function commandReducer(
 	state: CommandState,
 	action: CommandAction
@@ -107,7 +115,7 @@ function commandReducer(
 	switch (action.type) {
 		case "CreateCommandData":
 			return produce(state, (draft) => {
-				draft.commands = [...state.commands, { type: "click", selector: "" }];
+				draft.commands = [...state.commands, { ...defaultCommandItem }];
 			});
 		case "ChangeCommand":
 			return produce(state, (draft) => {
@@ -140,6 +148,10 @@ function commandReducer(
 				const filtered = commands.filter((_, idx) => idx !== action.from);
 				filtered.splice(action.to, 0, item);
 				draft.commands = filtered;
+			});
+		case "InsertCommandItem":
+			return produce(state, (draft) => {
+				draft.commands.splice(action.index, 0, { ...defaultCommandItem });
 			});
 		default:
 			// @ts-expect-error

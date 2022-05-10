@@ -7,7 +7,7 @@ const CommandList: React.FC = () => {
 	const { commands } = useCommandsState();
 
 	return (
-		<Flex direction={"column"} overflowY={"scroll"}>
+		<Flex direction={"column"} overflowY={"scroll"} paddingBottom="2">
 			{commands.length > 0 ? (
 				commands.map((command, idx) => (
 					<CommandItem command={command} index={idx} key={idx} />

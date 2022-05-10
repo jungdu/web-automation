@@ -27,7 +27,7 @@ const OpenBrowserRow: React.FC = () => {
 
 	return (
 		<Flex marginTop="1">
-			<InputGroup marginBottom="2">
+			<InputGroup>
 				<InputLeftAddon children="시작 URL" />
 				<Input
 					type="tel"
