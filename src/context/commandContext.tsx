@@ -44,6 +44,12 @@ interface SetConnectedBrowserIdAction {
 	connectedBrowserId: string | null;
 }
 
+interface MoveCommandItemAction {
+	type: "MoveCommandItem";
+	from: number;
+	to: number;
+}
+
 type CommandAction =
 	| CreateCommandAction
 	| ChangeCommandAction
@@ -51,7 +57,8 @@ type CommandAction =
 	| DeleteCommandAction
 	| InitCommandAction
 	| SetStartUrlAction
-	| SetConnectedBrowserIdAction;
+	| SetConnectedBrowserIdAction
+	| MoveCommandItemAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -125,6 +132,14 @@ function commandReducer(
 		case "SetConnectedBrowserId":
 			return produce(state, (draft) => {
 				draft.connectedBrowserId = action.connectedBrowserId;
+			});
+		case "MoveCommandItem":
+			return produce(state, (draft) => {
+				const { commands } = state;
+				const item = commands[action.from];
+				const filtered = commands.filter((_, idx) => idx !== action.from);
+				filtered.splice(action.to, 0, item);
+				draft.commands = filtered;
 			});
 		default:
 			// @ts-expect-error
