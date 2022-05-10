@@ -1,11 +1,11 @@
 import { ArrowUpDownIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import React from "react";
-import { executeCommand } from "../../util";
+import { executeCommand } from "../../../util";
 import CommandItemInput from "./CommandItemInput";
-import CommandTypeSelector from "./CommandTypeSelector";
-import { CommandData } from "./type";
-import useCommands from "../../hooks/useCommands";
+import CommandTypeSelector from "../CommandTypeSelector";
+import { CommandData } from "../type";
+import useCommands from "../../../hooks/useCommands";
 
 const CommandItem: React.FC<{
 	command: CommandData;

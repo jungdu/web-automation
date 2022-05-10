@@ -3,9 +3,7 @@ import React from "react";
 import CommandHeader from "./CommandHeader";
 import CommandList from "./CommandList";
 import CommandButtons from "./CommandButtons";
-import OpenBrowserRow from "./OpenBrowserRow";
 import CommandProgress from "./CommandProgress";
-import CommandListTitle from "./CommandListTitle";
 import { CommandProgressProvider } from "../../context/commandProgressContext";
 
 const Command: React.FC = () => {
@@ -16,8 +14,6 @@ const Command: React.FC = () => {
 					<CommandHeader />
 					<CommandButtons />
 					<CommandProgress />
-					<CommandListTitle />
-					<OpenBrowserRow />
 					<CommandList />
 				</Flex>
 			</Container>

@@ -1,8 +1,8 @@
 import { Input } from "@chakra-ui/react";
 import React from "react";
-import InputNumber from "../InputNumber";
-import { CommandData } from "./type";
-import { useCommandsDispatch } from "../../hooks/useCommands";
+import InputNumber from "../../InputNumber";
+import { CommandData } from "../type";
+import { useCommandsDispatch } from "../../../hooks/useCommands";
 
 const CommandItemInput: React.FC<{
 	command: CommandData;

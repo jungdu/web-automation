@@ -1,7 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Button, Tooltip } from "@chakra-ui/react";
 import React from "react";
-import useCommands from "../../hooks/useCommands";
+import useCommands from "../../../hooks/useCommands";
 
 const CreateCommandButton: React.FC = () => {
 	const { dispatch: commandsDispatch } = useCommands();
