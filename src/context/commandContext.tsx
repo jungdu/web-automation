@@ -3,6 +3,7 @@ import {
 	CommandData,
 	CommandType,
 	ParameterData,
+	ParamInputInfo,
 } from "../component/Command/type";
 import produce from "immer";
 
@@ -62,6 +63,7 @@ interface InsertCommandItemAction {
 
 interface CreateParameterAction {
 	type: "CreateParameter";
+	parameterData: ParameterData;
 }
 
 interface DeleteParameterAction {
@@ -72,7 +74,7 @@ interface DeleteParameterAction {
 interface ChangeParameterAction {
 	type: "ChangeParameter";
 	index: number;
-	parameterData: ParameterData;
+	parameterData: Pick<ParameterData, "key" | "value">;
 }
 
 type CommandAction =
@@ -126,22 +128,11 @@ const initialCommandData: CommandState = {
 		},
 	],
 	currentCommandGroupId: null,
-	parameters: [
-		{
-			key: "A",
-			value: "B",
-		},
-		{
-			key: "C",
-			value: "D",
-		},
-	],
+	parameters: [],
 	startUrl: "",
 };
 
 const defaultCommandItem: CommandData = { type: "click", selector: "" };
-
-const defaultParameter: ParameterData = { key: "", value: "" };
 
 function commandReducer(
 	state: CommandState,
@@ -192,7 +183,7 @@ function commandReducer(
 			});
 		case "CreateParameter":
 			return produce(state, (draft) => {
-				draft.parameters = [...state.parameters, { ...defaultParameter }];
+				draft.parameters = [...state.parameters, action.parameterData];
 			});
 		case "DeleteParameter":
 			return produce(state, (draft) => {
@@ -202,7 +193,8 @@ function commandReducer(
 			});
 		case "ChangeParameter":
 			return produce(state, (draft) => {
-				draft.parameters[action.index] = action.parameterData;
+				draft.parameters[action.index].key = action.parameterData.key;
+				draft.parameters[action.index].value = action.parameterData.value;
 			});
 		default:
 			// @ts-expect-error

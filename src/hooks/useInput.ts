@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-export default function useInput(initValue: string = "") {
+export default function useInput<T>(initValue: string = "") {
 	const [value, setValue] = useState(initValue);
 
 	const handleChange = (
-		e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+		e: React.FormEvent<
+			HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+		>
 	) => {
 		setValue(e.currentTarget.value);
 	};

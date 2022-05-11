@@ -1,7 +1,7 @@
 import { Flex, Heading, Box } from "@chakra-ui/react";
 import React from "react";
 import { useCommandsState } from "../../../hooks/useCommands";
-import CreateParameter from "./CreateParameterButton";
+import CreateParameterButton from "./CreateParameterButton";
 import ParameterItem from "./ParameterItem";
 
 const ParameterList: React.FC = () => {
@@ -14,7 +14,7 @@ const ParameterList: React.FC = () => {
 				<Heading size="md" color="gray.600">
 					실행 파라미터
 				</Heading>
-				<CreateParameter />
+				<CreateParameterButton />
 			</Flex>
 			<Box>
 				{parameters.map((parameter, i) => (

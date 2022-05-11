@@ -27,9 +27,33 @@ export type CommandData =
 
 export type CommandType = CommandData["type"];
 
+interface CheckBoxParameter {
+	type: "checkbox";
+}
+
+interface SelectorParameter {
+	type: "selector";
+	options: string[];
+}
+
+interface PasswordParameter {
+	type: "password";
+}
+
+interface TextParameter {
+	type: "text";
+}
+
+export type ParamInputInfo =
+	| CheckBoxParameter
+	| SelectorParameter
+	| TextParameter
+	| PasswordParameter;
+
 export interface ParameterData {
 	key: string;
 	value: string;
+	inputInfo: ParamInputInfo;
 }
 
 export interface CommandGroupData {
