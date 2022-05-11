@@ -4,6 +4,7 @@ import {
 	IpcMessage,
 	OpenBrowserMessage,
 	TypeKeyboardMessage,
+	ReplacePageMessage,
 } from "../common/ipcType";
 import { browserCtrl } from "./BrowserCtrl";
 import { mainWindowCtrl } from "./MainWindowCtrl";
@@ -46,6 +47,14 @@ export function addIpcHandlers() {
 		async (e, { browserId, text }) => {
 			const page = browserCtrl.getPage(browserId);
 			await page.keyboard.type(text, { delay: 100 });
+		}
+	);
+
+	addIpcMainHandler<ReplacePageMessage>(
+		"replacePageMessage",
+		async (e, { browserId, url }) => {
+			const page = browserCtrl.getPage(browserId);
+			await page.goto(url);
 		}
 	);
 }

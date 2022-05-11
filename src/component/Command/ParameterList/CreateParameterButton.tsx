@@ -1,21 +1,21 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Button, Tooltip } from "@chakra-ui/react";
 import React from "react";
-import useCommands from "../../../hooks/useCommands";
+import { useCommandsDispatch } from "../../../hooks/useCommands";
 
-const CreateCommandButton: React.FC = () => {
-	const { dispatch: commandsDispatch } = useCommands();
-
-	const handleClickCreateCommand = () => {
-		commandsDispatch({ type: "CreateCommandData" });
-	};
+const CreateParameterButton: React.FC = () => {
+	const dispatch = useCommandsDispatch();
 
 	return (
 		<Tooltip label="동작 추가">
 			<Button
 				colorScheme={"blue"}
 				variant="ghost"
-				onClick={handleClickCreateCommand}
+				onClick={() => {
+					dispatch({
+						type: "CreateParameter",
+					});
+				}}
 				marginLeft="1"
 				size={"sm"}
 			>
@@ -25,4 +25,4 @@ const CreateCommandButton: React.FC = () => {
 	);
 };
 
-export default CreateCommandButton;
+export default CreateParameterButton;

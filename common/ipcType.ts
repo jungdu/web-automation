@@ -26,7 +26,17 @@ export interface TypeKeyboardMessage {
 	return: void;
 }
 
+export interface ReplacePageMessage {
+	type: "replacePageMessage";
+	param: {
+		browserId: string;
+		url: string;
+	};
+	return: void;
+}
+
 export type IpcMessage =
 	| OpenBrowserMessage
 	| ClickElementMessage
-	| TypeKeyboardMessage;
+	| TypeKeyboardMessage
+	| ReplacePageMessage;

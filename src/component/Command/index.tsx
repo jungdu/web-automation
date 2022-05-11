@@ -5,6 +5,7 @@ import CommandList from "./CommandList";
 import CommandButtons from "./CommandButtons";
 import CommandProgress from "./CommandProgress";
 import { CommandProgressProvider } from "../../context/commandProgressContext";
+import ParameterList from "./ParameterList";
 
 const Command: React.FC = () => {
 	return (
@@ -14,6 +15,7 @@ const Command: React.FC = () => {
 					<CommandHeader />
 					<CommandButtons />
 					<CommandProgress />
+					<ParameterList />
 					<CommandList />
 				</Flex>
 			</Container>

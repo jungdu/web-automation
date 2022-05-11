@@ -1,6 +1,6 @@
 import produce from "immer";
 import { createContext, useReducer } from "react";
-import { CommandGroupData } from "../component/Command/type";
+import { CommandGroupData, ParameterData } from "../component/Command/type";
 
 export type CommandGroupState = CommandGroupData[];
 
@@ -24,6 +24,7 @@ interface UpdateCommandGroupAction {
 	startUrl: string;
 	commandGroupId: string;
 	commands: CommandGroupData["commands"];
+	parameters: ParameterData[];
 	lastEditedAt: CommandGroupData["lastEditedAt"];
 }
 
@@ -49,6 +50,7 @@ function commandGroupReducer(
 				(group) => group.id === action.commandGroupId
 			);
 			return produce(state, (draft) => {
+				draft[groupIndex].parameters = action.parameters;
 				draft[groupIndex].commands = action.commands;
 				draft[groupIndex].lastEditedAt = action.lastEditedAt;
 				draft[groupIndex].startUrl = action.startUrl;

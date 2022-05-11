@@ -17,11 +17,13 @@ const CommandGroupHeader: React.FC = () => {
 	const handleClickCreate = () => {
 		commandsDispatch({
 			type: "InitCommand",
+			// TODO 아래 commandState 설정안해도 되게 수정
 			commandState: {
 				connectedBrowserId: null,
 				currentCommandGroupId: null,
 				startUrl: "",
 				commands: [],
+				parameters: [],
 			},
 		});
 		navigate(routes.editor);

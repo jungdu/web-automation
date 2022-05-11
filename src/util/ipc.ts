@@ -3,6 +3,7 @@ import {
 	ClickElementMessage,
 	IpcMessage,
 	OpenBrowserMessage,
+	ReplacePageMessage,
 	TypeKeyboardMessage,
 } from "../../common/ipcType";
 
@@ -29,6 +30,13 @@ export async function typeKeyboard(browserId: string, text: string) {
 	return await invoke<TypeKeyboardMessage>("typeKeyboardMessage", {
 		browserId,
 		text,
+	});
+}
+
+export async function replacePage(browserId: string, url: string) {
+	return await invoke<ReplacePageMessage>("replacePageMessage", {
+		browserId,
+		url,
 	});
 }
 

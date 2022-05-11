@@ -12,7 +12,7 @@ const CommandItem: React.FC<{
 	index: number;
 }> = ({ command, index }) => {
 	const {
-		commandsState: { connectedBrowserId },
+		commandsState: { connectedBrowserId, parameters },
 		dispatch,
 	} = useCommands();
 
@@ -25,7 +25,7 @@ const CommandItem: React.FC<{
 
 	const handleClickExecute = () => {
 		if (connectedBrowserId) {
-			executeCommand(connectedBrowserId, command);
+			executeCommand(connectedBrowserId, command, parameters);
 		} else {
 			throw new Error("Require connected browser to execute");
 		}

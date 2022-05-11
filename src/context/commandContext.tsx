@@ -1,9 +1,14 @@
 import React, { createContext, useReducer } from "react";
-import { CommandData, CommandType } from "../component/Command/type";
+import {
+	CommandData,
+	CommandType,
+	ParameterData,
+} from "../component/Command/type";
 import produce from "immer";
 
 export type CommandState = {
 	commands: CommandData[];
+	parameters: ParameterData[];
 	currentCommandGroupId: string | null;
 	connectedBrowserId: string | null;
 	startUrl: string;
@@ -55,6 +60,21 @@ interface InsertCommandItemAction {
 	index: number;
 }
 
+interface CreateParameterAction {
+	type: "CreateParameter";
+}
+
+interface DeleteParameterAction {
+	type: "DeleteParameter";
+	index: number;
+}
+
+interface ChangeParameterAction {
+	type: "ChangeParameter";
+	index: number;
+	parameterData: ParameterData;
+}
+
 type CommandAction =
 	| CreateCommandAction
 	| ChangeCommandAction
@@ -64,7 +84,10 @@ type CommandAction =
 	| SetStartUrlAction
 	| SetConnectedBrowserIdAction
 	| MoveCommandItemAction
-	| InsertCommandItemAction;
+	| InsertCommandItemAction
+	| CreateParameterAction
+	| DeleteParameterAction
+	| ChangeParameterAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -96,22 +119,36 @@ function getDefaultCommand(type: CommandType): CommandData {
 
 const initialCommandData: CommandState = {
 	connectedBrowserId: null,
-	startUrl: "",
-	currentCommandGroupId: null,
 	commands: [
 		{
 			type: "click",
 			selector: "#plus-btn",
 		},
 	],
+	currentCommandGroupId: null,
+	parameters: [
+		{
+			key: "A",
+			value: "B",
+		},
+		{
+			key: "C",
+			value: "D",
+		},
+	],
+	startUrl: "",
 };
 
 const defaultCommandItem: CommandData = { type: "click", selector: "" };
+
+const defaultParameter: ParameterData = { key: "", value: "" };
 
 function commandReducer(
 	state: CommandState,
 	action: CommandAction
 ): CommandState {
+	console.log("action.type :", action.type);
+	console.log("state :", state);
 	switch (action.type) {
 		case "CreateCommandData":
 			return produce(state, (draft) => {
@@ -152,6 +189,20 @@ function commandReducer(
 		case "InsertCommandItem":
 			return produce(state, (draft) => {
 				draft.commands.splice(action.index, 0, { ...defaultCommandItem });
+			});
+		case "CreateParameter":
+			return produce(state, (draft) => {
+				draft.parameters = [...state.parameters, { ...defaultParameter }];
+			});
+		case "DeleteParameter":
+			return produce(state, (draft) => {
+				draft.parameters = state.parameters.filter(
+					(_, idx) => idx !== action.index
+				);
+			});
+		case "ChangeParameter":
+			return produce(state, (draft) => {
+				draft.parameters[action.index] = action.parameterData;
 			});
 		default:
 			// @ts-expect-error

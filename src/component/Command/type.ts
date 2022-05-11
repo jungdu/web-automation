@@ -27,11 +27,17 @@ export type CommandData =
 
 export type CommandType = CommandData["type"];
 
+export interface ParameterData {
+	key: string;
+	value: string;
+}
+
 export interface CommandGroupData {
 	commands: CommandData[];
 	createdAt: number;
 	id: string;
 	lastEditedAt?: number;
+	parameters: ParameterData[];
 	startUrl: string;
 	title: string;
 }

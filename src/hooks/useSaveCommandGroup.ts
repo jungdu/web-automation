@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { useToast } from "@chakra-ui/react";
 
 export default function useSaveCommandGroup() {
-	const { commands, startUrl } = useCommandsState();
+	const { commands, startUrl, parameters } = useCommandsState();
 	const commandGroupsDispatch = useCommandGroupsDispatch();
 	const toast = useToast();
 
@@ -15,6 +15,7 @@ export default function useSaveCommandGroup() {
 				commands,
 				createdAt: new Date().getDate(),
 				id: nanoid(),
+				parameters,
 				startUrl,
 				title,
 			},

@@ -45,11 +45,12 @@ const CopyButton: React.FC = () => {
 		}
 
 		try {
-			const { commands, startUrl, title } =
+			const { commands, startUrl, title, parameters } =
 				deserializeCommandGroupData(textValue);
 			dispatch({
 				type: "CreateCommandGroup",
 				commandGroupData: {
+					parameters: parameters || [],
 					commands,
 					startUrl,
 					id: nanoid(),

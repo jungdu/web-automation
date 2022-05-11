@@ -5,7 +5,7 @@ import { executeCommands } from "../../../util";
 import { openBrowser } from "../../../util/ipc";
 
 export function useRunCommandGroup() {
-	const { commands, startUrl } = useCommandsState();
+	const { commands, startUrl, parameters } = useCommandsState();
 	const dispatch = useCommandProgressDispatch();
 	const toast = useToast();
 
@@ -19,7 +19,7 @@ export function useRunCommandGroup() {
 		try {
 			const { id } = await openBrowser(startUrl);
 
-			await executeCommands(id, commands, repeatCount, {
+			await executeCommands(id, commands, parameters, repeatCount, {
 				onCommandItemSuccess: (_, itemIdx) => {
 					dispatch({
 						type: "UpdateProgress",

@@ -14,7 +14,7 @@ import { openBrowser } from "../../../util/ipc";
 
 const OpenBrowserRow: React.FC = () => {
 	const {
-		commandsState: { startUrl, connectedBrowserId, commands },
+		commandsState: { startUrl, connectedBrowserId, commands, parameters },
 		dispatch,
 	} = useCommands();
 
@@ -68,7 +68,7 @@ const OpenBrowserRow: React.FC = () => {
 							throw new Error("Requires connectedBrowserId");
 						}
 
-						executeCommands(connectedBrowserId, commands);
+						executeCommands(connectedBrowserId, commands, parameters);
 					}}
 					flex="42px 0 0"
 				>

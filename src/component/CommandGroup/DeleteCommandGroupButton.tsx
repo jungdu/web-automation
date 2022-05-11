@@ -29,11 +29,13 @@ const DeleteCommandGroupButton: React.FC<{
 		if (currentCommandGroupId === commandGroup.id) {
 			commandsDispatch({
 				type: "InitCommand",
+				// TODO commandState default 통일하기
 				commandState: {
 					connectedBrowserId: null,
 					startUrl: commandGroup.startUrl,
 					currentCommandGroupId: null,
 					commands: [],
+					parameters: [],
 				},
 			});
 		}
@@ -67,7 +69,7 @@ const DeleteCommandGroupButton: React.FC<{
 						</Heading>
 					</Box>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={handleClickDelete}>
+						<Button colorScheme="pink" mr={3} onClick={handleClickDelete}>
 							삭제
 						</Button>
 						<Button variant="outline" onClick={onClose}>

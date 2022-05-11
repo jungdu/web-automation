@@ -20,7 +20,10 @@ export function useSyncCommandsStorage() {
 			if (storedCommandsState) {
 				dispatch({
 					type: "InitCommand",
-					commandState: storedCommandsState,
+					commandState: {
+						...storedCommandsState,
+						parameters: storedCommandsState.parameters || [],
+					},
 				});
 			}
 			setInitiated(true);
