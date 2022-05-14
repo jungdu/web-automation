@@ -31,7 +31,19 @@ const ParameterInput: React.FC<{
 			);
 		case "selector":
 			return (
-				<Select>
+				<Select
+					value={parameter.value}
+					onChange={(event) => {
+						dispatch({
+							type: "ChangeParameter",
+							index,
+							parameterData: {
+								key: parameter.key,
+								value: event.currentTarget.value,
+							},
+						});
+					}}
+				>
 					{parameter.inputInfo.options.map((option) => (
 						<option value={option}>{option}</option>
 					))}
