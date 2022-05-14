@@ -33,6 +33,7 @@ class BrowserCtrl {
 		const browserId = nanoid();
 
 		const browser = await chromium.launch({
+			channel: "chrome",
 			headless: false,
 		});
 

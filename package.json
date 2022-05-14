@@ -28,7 +28,7 @@
     "framer-motion": "^6.3.3",
     "immer": "^9.0.12",
     "nanoid": "^3.3.4",
-    "playwright": "^1.21.1",
+    "playwright": "^1.22.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0"
