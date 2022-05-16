@@ -49,6 +49,10 @@ const EditParameterModal: React.FC<{
 	} = useInput("text");
 	const [options, setOptions] = useState<string[]>([""]);
 
+	function handleDeleteOptionClick(index: number) {
+		setOptions((prev) => prev.filter((_, idx) => idx !== index));
+	}
+
 	useEffect(() => {
 		setParamKey("");
 		setParamType("text");
@@ -128,7 +132,7 @@ const EditParameterModal: React.FC<{
 											<Button
 												colorScheme={"pink"}
 												marginLeft="1"
-												onClick={() => {}}
+												onClick={() => handleDeleteOptionClick(i)}
 												flex="42px 0 0"
 											>
 												<CloseIcon />
