@@ -19,7 +19,11 @@ const CreateParameterButton: React.FC = () => {
 					<AddIcon fontSize={"md"} />
 				</Button>
 			</Tooltip>
-			<EditParameterModal isOpen={isOpen} onClose={onClose} />
+			<EditParameterModal
+				isOpen={isOpen}
+				onClose={onClose}
+				editingParameterInfo={null}
+			/>
 		</>
 	);
 };

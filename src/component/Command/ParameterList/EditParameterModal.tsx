@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useCommandsDispatch } from "../../../hooks/useCommands";
 import useInput from "../../../hooks/useInput";
-import { ParamInputInfo } from "../type";
+import { ParameterData, ParamInputInfo } from "../type";
 
 // TODO ParamInputInfo에 checkbox도 추후에 추가하기
 const parameterTypes: ParamInputInfo["type"][] = [
@@ -27,15 +27,14 @@ const parameterTypes: ParamInputInfo["type"][] = [
 	"password",
 ];
 
-const initialParameterInfo = {
-	type: "text",
-	options: [],
-};
-
 const EditParameterModal: React.FC<{
 	isOpen: boolean;
 	onClose: () => void;
-}> = ({ isOpen, onClose }) => {
+	editingParameterInfo: {
+		parameter: ParameterData;
+		index: number;
+	} | null;
+}> = ({ isOpen, onClose, editingParameterInfo }) => {
 	const dispatch = useCommandsDispatch();
 	const {
 		value: paramKey,
@@ -53,10 +52,53 @@ const EditParameterModal: React.FC<{
 		setOptions((prev) => prev.filter((_, idx) => idx !== index));
 	}
 
+	function handleClickConfirm() {
+		switch (paramType) {
+			case "text":
+			case "password":
+				dispatch({
+					type: "CreateParameter",
+					parameterData: {
+						key: paramKey,
+						inputInfo: {
+							type: paramType,
+						},
+						value: "",
+					},
+				});
+				break;
+			case "selector":
+				dispatch({
+					type: "CreateParameter",
+					parameterData: {
+						key: paramKey,
+						inputInfo: {
+							type: paramType,
+							options,
+						},
+						value: options[0],
+					},
+				});
+				break;
+			default:
+				throw new Error("invalid paramType");
+		}
+		onClose();
+	}
+
 	useEffect(() => {
-		setParamKey("");
-		setParamType("text");
-		setOptions([""]);
+		if (editingParameterInfo) {
+			const { parameter } = editingParameterInfo;
+			if (parameter.inputInfo.type === "selector") {
+				setOptions(parameter.inputInfo.options);
+			}
+			setParamKey(parameter.key);
+			setParamType(parameter.inputInfo.type);
+		} else {
+			setParamKey("");
+			setParamType("text");
+			setOptions([""]);
+		}
 	}, [isOpen]);
 
 	return (
@@ -145,44 +187,8 @@ const EditParameterModal: React.FC<{
 					</Stack>
 				</Box>
 				<ModalFooter>
-					<Button
-						colorScheme="blue"
-						mr={3}
-						onClick={() => {
-							switch (paramType) {
-								case "text":
-								case "password":
-									dispatch({
-										type: "CreateParameter",
-										parameterData: {
-											key: paramKey,
-											inputInfo: {
-												type: paramType,
-											},
-											value: "",
-										},
-									});
-									break;
-								case "selector":
-									dispatch({
-										type: "CreateParameter",
-										parameterData: {
-											key: paramKey,
-											inputInfo: {
-												type: paramType,
-												options,
-											},
-											value: options[0],
-										},
-									});
-									break;
-								default:
-									throw new Error("invalid paramType");
-							}
-							onClose();
-						}}
-					>
-						추가
+					<Button colorScheme="blue" mr={3} onClick={handleClickConfirm}>
+						{editingParameterInfo ? "추가" : "수정"}
 					</Button>
 					<Button variant="outline" onClick={onClose}>
 						취소

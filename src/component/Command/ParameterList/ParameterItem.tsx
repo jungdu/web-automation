@@ -1,8 +1,9 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { useCommandsDispatch } from "../../../hooks/useCommands";
 import { ParameterData } from "../type";
+import EditParameterButton from "./EditParameterButton";
 import ParameterInput from "./ParameterInput";
 
 const ParameterItem: React.FC<{
@@ -17,6 +18,7 @@ const ParameterItem: React.FC<{
 				{parameter.key} :
 			</Text>
 			<ParameterInput index={index} parameter={parameter} />
+			{/* <EditParameterButton parameter={parameter} index={index} /> */}
 			<Button
 				colorScheme="pink"
 				onClick={() => {
@@ -25,7 +27,7 @@ const ParameterItem: React.FC<{
 						index,
 					});
 				}}
-				marginLeft="2"
+				marginLeft="1"
 			>
 				<CloseIcon />
 			</Button>
