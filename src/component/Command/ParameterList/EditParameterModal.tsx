@@ -53,35 +53,71 @@ const EditParameterModal: React.FC<{
 	}
 
 	function handleClickConfirm() {
-		switch (paramType) {
-			case "text":
-			case "password":
-				dispatch({
-					type: "CreateParameter",
-					parameterData: {
-						key: paramKey,
-						inputInfo: {
-							type: paramType,
+		if (editingParameterInfo) {
+			const { index } = editingParameterInfo;
+			switch (paramType) {
+				case "text":
+				case "password":
+					dispatch({
+						type: "UpdateParameter",
+						parameterData: {
+							key: paramKey,
+							inputInfo: {
+								type: paramType,
+							},
+							value: "",
 						},
-						value: "",
-					},
-				});
-				break;
-			case "selector":
-				dispatch({
-					type: "CreateParameter",
-					parameterData: {
-						key: paramKey,
-						inputInfo: {
-							type: paramType,
-							options,
+						index,
+					});
+					break;
+				case "selector":
+					dispatch({
+						type: "UpdateParameter",
+						parameterData: {
+							key: paramKey,
+							inputInfo: {
+								type: paramType,
+								options,
+							},
+							value: options[0],
 						},
-						value: options[0],
-					},
-				});
-				break;
-			default:
-				throw new Error("invalid paramType");
+						index,
+					});
+					break;
+				default:
+					throw new Error("invalid paramType");
+			}
+		} else {
+			switch (paramType) {
+				case "text":
+				case "password":
+					dispatch({
+						type: "CreateParameter",
+						parameterData: {
+							key: paramKey,
+							inputInfo: {
+								type: paramType,
+							},
+							value: "",
+						},
+					});
+					break;
+				case "selector":
+					dispatch({
+						type: "CreateParameter",
+						parameterData: {
+							key: paramKey,
+							inputInfo: {
+								type: paramType,
+								options,
+							},
+							value: options[0],
+						},
+					});
+					break;
+				default:
+					throw new Error("invalid paramType");
+			}
 		}
 		onClose();
 	}
@@ -155,13 +191,12 @@ const EditParameterModal: React.FC<{
 								</Flex>
 								<Stack spacing={"2"} height="200px" overflow={"scroll"}>
 									{options.map((option, i) => (
-										<Flex>
+										<Flex key={i}>
 											<Input
 												id="parameter-key"
 												key={i}
 												value={option}
 												onChange={(e) => {
-													console.log("e.currentTarget :", e.currentTarget);
 													const value = e.currentTarget.value;
 													setOptions(() => {
 														const nextOptions = [...options];
@@ -188,7 +223,7 @@ const EditParameterModal: React.FC<{
 				</Box>
 				<ModalFooter>
 					<Button colorScheme="blue" mr={3} onClick={handleClickConfirm}>
-						{editingParameterInfo ? "추가" : "수정"}
+						{editingParameterInfo ? "수정" : "추가"}
 					</Button>
 					<Button variant="outline" onClick={onClose}>
 						취소

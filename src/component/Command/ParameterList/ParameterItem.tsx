@@ -18,7 +18,7 @@ const ParameterItem: React.FC<{
 				{parameter.key} :
 			</Text>
 			<ParameterInput index={index} parameter={parameter} />
-			{/* <EditParameterButton parameter={parameter} index={index} /> */}
+			<EditParameterButton parameter={parameter} index={index} />
 			<Button
 				colorScheme="pink"
 				onClick={() => {

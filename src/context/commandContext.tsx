@@ -71,6 +71,12 @@ interface DeleteParameterAction {
 	index: number;
 }
 
+interface UpdateParameterAction {
+	type: "UpdateParameter";
+	index: number;
+	parameterData: ParameterData;
+}
+
 interface ChangeParameterAction {
 	type: "ChangeParameter";
 	index: number;
@@ -89,6 +95,7 @@ type CommandAction =
 	| InsertCommandItemAction
 	| CreateParameterAction
 	| DeleteParameterAction
+	| UpdateParameterAction
 	| ChangeParameterAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
@@ -190,6 +197,10 @@ function commandReducer(
 				draft.parameters = state.parameters.filter(
 					(_, idx) => idx !== action.index
 				);
+			});
+		case "UpdateParameter":
+			return produce(state, (draft) => {
+				draft.parameters[action.index] = action.parameterData;
 			});
 		case "ChangeParameter":
 			return produce(state, (draft) => {
