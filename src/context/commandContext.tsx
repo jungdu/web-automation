@@ -3,7 +3,6 @@ import {
 	CommandData,
 	CommandType,
 	ParameterData,
-	ParamInputInfo,
 } from "../component/Command/type";
 import produce from "immer";
 
@@ -13,6 +12,7 @@ export type CommandState = {
 	currentCommandGroupId: string | null;
 	connectedBrowserId: string | null;
 	startUrl: string;
+	edited: boolean;
 };
 interface CreateCommandAction {
 	type: "CreateCommandData";
@@ -83,6 +83,10 @@ interface ChangeParameterAction {
 	parameterData: Pick<ParameterData, "key" | "value">;
 }
 
+interface OnUpdateCommandGroupAction {
+	type: "OnUpdateCommandGroup";
+}
+
 type CommandAction =
 	| CreateCommandAction
 	| ChangeCommandAction
@@ -96,7 +100,8 @@ type CommandAction =
 	| CreateParameterAction
 	| DeleteParameterAction
 	| UpdateParameterAction
-	| ChangeParameterAction;
+	| ChangeParameterAction
+	| OnUpdateCommandGroupAction;
 
 function getDefaultCommand(type: CommandType): CommandData {
 	switch (type) {
@@ -137,6 +142,7 @@ const initialCommandData: CommandState = {
 	currentCommandGroupId: null,
 	parameters: [],
 	startUrl: "",
+	edited: false,
 };
 
 const defaultCommandItem: CommandData = { type: "click", selector: "" };
@@ -149,26 +155,31 @@ function commandReducer(
 		case "CreateCommandData":
 			return produce(state, (draft) => {
 				draft.commands = [...state.commands, { ...defaultCommandItem }];
+				draft.edited = true;
 			});
 		case "ChangeCommand":
 			return produce(state, (draft) => {
 				draft.commands[action.index] = action.newCommandData;
+				draft.edited = true;
 			});
 		case "ChangeCommandType":
 			return produce(state, (draft) => {
 				draft.commands[action.index] = getDefaultCommand(action.newCommandType);
+				draft.edited = true;
 			});
 		case "DeleteCommand":
 			return produce(state, (draft) => {
 				draft.commands = state.commands.filter(
 					(_, idx) => idx !== action.index
 				);
+				draft.edited = true;
 			});
 		case "InitCommand":
 			return action.commandState;
 		case "SetStartUrl":
 			return produce(state, (draft) => {
 				draft.startUrl = action.startUrl;
+				draft.edited = true;
 			});
 		case "SetConnectedBrowserId":
 			return produce(state, (draft) => {
@@ -181,29 +192,39 @@ function commandReducer(
 				const filtered = commands.filter((_, idx) => idx !== action.from);
 				filtered.splice(action.to, 0, item);
 				draft.commands = filtered;
+				draft.edited = true;
 			});
 		case "InsertCommandItem":
 			return produce(state, (draft) => {
 				draft.commands.splice(action.index, 0, { ...defaultCommandItem });
+				draft.edited = true;
 			});
 		case "CreateParameter":
 			return produce(state, (draft) => {
 				draft.parameters = [...state.parameters, action.parameterData];
+				draft.edited = true;
 			});
 		case "DeleteParameter":
 			return produce(state, (draft) => {
 				draft.parameters = state.parameters.filter(
 					(_, idx) => idx !== action.index
 				);
+				draft.edited = true;
 			});
 		case "UpdateParameter":
 			return produce(state, (draft) => {
 				draft.parameters[action.index] = action.parameterData;
+				draft.edited = true;
 			});
 		case "ChangeParameter":
 			return produce(state, (draft) => {
 				draft.parameters[action.index].key = action.parameterData.key;
 				draft.parameters[action.index].value = action.parameterData.value;
+				draft.edited = true;
+			});
+		case "OnUpdateCommandGroup":
+			return produce(state, (draft) => {
+				draft.edited = false;
 			});
 		default:
 			// @ts-expect-error
