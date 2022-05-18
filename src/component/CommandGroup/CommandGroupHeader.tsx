@@ -24,6 +24,7 @@ const CommandGroupHeader: React.FC = () => {
 				startUrl: "",
 				commands: [],
 				parameters: [],
+				edited: false,
 			},
 		});
 		navigate(routes.editor);

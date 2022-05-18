@@ -22,6 +22,7 @@ const CommandGroupItem: React.FC<{
 				startUrl: commandGroup.startUrl,
 				currentCommandGroupId: commandGroup.id,
 				commands: commandGroup.commands,
+				edited: false,
 			},
 		});
 		navigate(routes.editor);

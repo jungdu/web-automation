@@ -36,6 +36,7 @@ const DeleteCommandGroupButton: React.FC<{
 					currentCommandGroupId: null,
 					commands: [],
 					parameters: [],
+					edited: false,
 				},
 			});
 		}
