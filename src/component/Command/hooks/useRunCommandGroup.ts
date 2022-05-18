@@ -33,7 +33,6 @@ export function useRunCommandGroup() {
 				type: "SuccessProgress",
 			});
 		} catch (e) {
-			console.log("e :", e);
 			if (e instanceof Error) {
 				toast({
 					title: "동작 실행 중 에러가 발생했습니다.",

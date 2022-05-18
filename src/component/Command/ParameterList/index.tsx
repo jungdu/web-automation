@@ -6,7 +6,6 @@ import ParameterItem from "./ParameterItem";
 
 const ParameterList: React.FC = () => {
 	const { parameters } = useCommandsState();
-	console.log("parameters :", parameters);
 
 	return (
 		<Box>

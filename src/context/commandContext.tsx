@@ -145,8 +145,6 @@ function commandReducer(
 	state: CommandState,
 	action: CommandAction
 ): CommandState {
-	console.log("action.type :", action.type);
-	console.log("state :", state);
 	switch (action.type) {
 		case "CreateCommandData":
 			return produce(state, (draft) => {
