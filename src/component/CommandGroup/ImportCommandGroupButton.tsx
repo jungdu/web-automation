@@ -7,6 +7,7 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalOverlay,
+	Text,
 	Textarea,
 	useDisclosure,
 	useToast,
@@ -93,6 +94,14 @@ const CopyButton: React.FC = () => {
 							value={textValue}
 							onChange={handleTextChange}
 						/>
+						<Text
+							color="tomato"
+							wordBreak={"keep-all"}
+							marginTop="2"
+							fontWeight={"bold"}
+						>
+							신뢰할 수 있는 출처의 데이터만 불러오세요
+						</Text>
 					</Box>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={handleClickImport}>

@@ -7,6 +7,7 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalOverlay,
+	Text,
 	Textarea,
 	useDisclosure,
 } from "@chakra-ui/react";
@@ -47,11 +48,21 @@ const CopyButton: React.FC<{
 						<Heading size={"md"} color="gray.600" marginBottom={"4"}>
 							자동화 데이터 내보내기
 						</Heading>
+
 						<Textarea
 							minHeight={"320px"}
 							value={textValue}
 							onChange={handleTextChange}
 						/>
+						<Text
+							color="tomato"
+							wordBreak={"keep-all"}
+							marginTop="2"
+							fontWeight={"bold"}
+						>
+							데이터를 전달할 때 비밀번호와 같은 개인정보 포함되지 않도록
+							주의하세요
+						</Text>
 					</Box>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={() => {}}>
