@@ -1,6 +1,5 @@
 import {
 	Button,
-	Flex,
 	Heading,
 	Input,
 	InputGroup,
@@ -15,7 +14,6 @@ import {
 	useDisclosure,
 	Box,
 	useToast,
-	Text,
 } from "@chakra-ui/react";
 import useInput from "../../hooks/useInput";
 import useSaveCommandGroup from "../../hooks/useSaveCommandGroup";
