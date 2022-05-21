@@ -2,10 +2,17 @@ export function getCurrentTime(): number {
 	return new Date().getTime();
 }
 
-export function formatTime(time: number) {
-	const date = new Date(time);
+function isValidTime(time: number) {
+	return time > 1590065798750;
+}
 
-	return `${
+export function formatTime(time: number) {
+	if (!isValidTime(time)) {
+		return "null";
+	}
+
+	const date = new Date(time);
+	return `${date.getFullYear().toString().slice(2)}년${
 		date.getMonth() + 1
-	}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
+	}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
 }
