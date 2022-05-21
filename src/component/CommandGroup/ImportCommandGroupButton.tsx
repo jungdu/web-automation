@@ -16,7 +16,7 @@ import { nanoid } from "nanoid";
 import React from "react";
 import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
 import useInput from "../../hooks/useInput";
-import { deserializeCommandGroupData } from "../../util";
+import { deserializeCommandGroupData } from "@/util";
 
 const CopyButton: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();

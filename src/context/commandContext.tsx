@@ -10,7 +10,6 @@ export type CommandState = {
 	commands: CommandData[];
 	parameters: ParameterData[];
 	currentCommandGroupId: string | null;
-	connectedBrowserId: string | null;
 	startUrl: string;
 	edited: boolean;
 };
@@ -43,11 +42,6 @@ interface InitCommandAction {
 interface SetStartUrlAction {
 	type: "SetStartUrl";
 	startUrl: string;
-}
-
-interface SetConnectedBrowserIdAction {
-	type: "SetConnectedBrowserId";
-	connectedBrowserId: string | null;
 }
 
 interface MoveCommandItemAction {
@@ -94,7 +88,6 @@ type CommandAction =
 	| DeleteCommandAction
 	| InitCommandAction
 	| SetStartUrlAction
-	| SetConnectedBrowserIdAction
 	| MoveCommandItemAction
 	| InsertCommandItemAction
 	| CreateParameterAction
@@ -132,7 +125,6 @@ function getDefaultCommand(type: CommandType): CommandData {
 }
 
 const initialCommandData: CommandState = {
-	connectedBrowserId: null,
 	commands: [
 		{
 			type: "click",
@@ -180,10 +172,6 @@ function commandReducer(
 			return produce(state, (draft) => {
 				draft.startUrl = action.startUrl;
 				draft.edited = true;
-			});
-		case "SetConnectedBrowserId":
-			return produce(state, (draft) => {
-				draft.connectedBrowserId = action.connectedBrowserId;
 			});
 		case "MoveCommandItem":
 			return produce(state, (draft) => {

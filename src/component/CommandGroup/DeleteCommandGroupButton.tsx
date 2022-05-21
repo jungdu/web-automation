@@ -31,7 +31,6 @@ const DeleteCommandGroupButton: React.FC<{
 				type: "InitCommand",
 				// TODO commandState default 통일하기
 				commandState: {
-					connectedBrowserId: null,
 					startUrl: commandGroup.startUrl,
 					currentCommandGroupId: null,
 					commands: [],

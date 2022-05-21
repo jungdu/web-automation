@@ -9,17 +9,21 @@ import ParameterList from "./ParameterList";
 
 const Command: React.FC = () => {
 	return (
-		<CommandProgressProvider>
-			<Container maxWidth="800px">
-				<Flex width="100%" direction={"column"} padding="3">
-					<CommandHeader />
-					<CommandButtons />
-					<CommandProgress />
-					<ParameterList />
+		<Container maxWidth="800px">
+			<Flex width="100%" direction={"column"} padding="3">
+				<CommandHeader />
+				<CommandProgressProvider>
+					<>
+						<CommandButtons />
+						<CommandProgress />
+					</>
+				</CommandProgressProvider>
+				<ParameterList />
+				<CommandProgressProvider>
 					<CommandList />
-				</Flex>
-			</Container>
-		</CommandProgressProvider>
+				</CommandProgressProvider>
+			</Flex>
+		</Container>
 	);
 };
 

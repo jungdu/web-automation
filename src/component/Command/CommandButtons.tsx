@@ -9,7 +9,7 @@ import { useCommandProgressState } from "../../hooks/useCommandProgress";
 const CommandButtons: React.FC = () => {
 	const { currentCommandGroupId } = useCommandsState();
 	const { running } = useCommandProgressState();
-	const runCommandGroup = useRunCommandGroup();
+	const runCommandGroup = useRunCommandGroup(null);
 	const [repeatCount, setRepeatCount] = useState(1);
 
 	const handleClickRepeatExecuteAllCommand = async () => {

@@ -2,13 +2,15 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Button, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useCommandsState } from "../../../../hooks/useCommands";
-import { executeCommand } from "../../../../util";
+import { executeCommand } from "@/util";
 import { CommandData } from "../../type";
+import { useCommandProgressState } from "@/hooks/useCommandProgress";
 
 const ExecuteButton: React.FC<{
 	command: CommandData;
 }> = ({ command }) => {
-	const { connectedBrowserId, parameters } = useCommandsState();
+	const { parameters } = useCommandsState();
+	const { connectedBrowserId } = useCommandProgressState();
 	const toast = useToast();
 
 	const handleClickExecute = async () => {
@@ -37,6 +39,7 @@ const ExecuteButton: React.FC<{
 			marginLeft="1"
 			onClick={handleClickExecute}
 			flex="42px 0 0"
+			// TODO running 일 때도 막아야함
 			disabled={!connectedBrowserId}
 		>
 			<ChevronRightIcon w={8} h={8} />

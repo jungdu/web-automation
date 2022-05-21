@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import useInput from "../../hooks/useInput";
-import { serializeCommandGroupData } from "../../util";
+import { serializeCommandGroupData } from "@/util";
 import { CommandGroupData } from "../Command/type";
 
 const CopyButton: React.FC<{

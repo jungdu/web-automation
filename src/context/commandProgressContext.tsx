@@ -2,10 +2,21 @@ import produce from "immer";
 import React, { createContext, useReducer } from "react";
 import { CommandData } from "../component/Command/type";
 
+interface ConnectBrowserAction {
+	type: "ConnectBrowser";
+	payload: {
+		browserId: string;
+	};
+}
+
+interface DisconnectBrowserAction {
+	type: "DisconnectBrowser";
+}
 interface StartCommandAction {
 	type: "StartCommand";
 	payload: {
 		commands: CommandData[];
+		browserId?: string;
 	};
 }
 
@@ -28,9 +39,12 @@ type CommandProgressAction =
 	| StartCommandAction
 	| FailedCommandAction
 	| UpdateProgressAction
-	| SuccessProgressAction;
+	| SuccessProgressAction
+	| ConnectBrowserAction
+	| DisconnectBrowserAction;
 
 export interface CommandProgressState {
+	connectedBrowserId: string | null;
 	commands: CommandData[];
 	failed: boolean;
 	progress: number;
@@ -38,6 +52,7 @@ export interface CommandProgressState {
 }
 
 const initialCommandProgressState: CommandProgressState = {
+	connectedBrowserId: null,
 	running: false,
 	failed: false,
 	progress: 0,
@@ -50,12 +65,15 @@ function commandProgressReducer(
 ) {
 	switch (action.type) {
 		case "StartCommand":
-			return {
-				commands: action.payload.commands,
-				failed: false,
-				progress: 0,
-				running: true,
-			};
+			return produce(state, (draft) => {
+				if (action.payload.browserId) {
+					draft.connectedBrowserId = action.payload.browserId;
+				}
+				draft.failed = false;
+				draft.commands = action.payload.commands;
+				draft.progress = 0;
+				draft.running = true;
+			});
 		case "FailedCommand":
 			return produce(state, (draft) => {
 				draft.failed = true;
@@ -70,6 +88,15 @@ function commandProgressReducer(
 			return produce(state, (draft) => {
 				draft.running = false;
 			});
+		case "ConnectBrowser":
+			return {
+				...initialCommandProgressState,
+				connectedBrowserId: action.payload.browserId,
+			};
+		case "DisconnectBrowser":
+			return {
+				...initialCommandProgressState,
+			};
 		default:
 			// @ts-expect-error
 			throw new Error(`Invalid type of action ${action.type}`);

@@ -18,7 +18,6 @@ const CommandGroupItem: React.FC<{
 			type: "InitCommand",
 			commandState: {
 				parameters: commandGroup.parameters,
-				connectedBrowserId: null,
 				startUrl: commandGroup.startUrl,
 				currentCommandGroupId: commandGroup.id,
 				commands: commandGroup.commands,

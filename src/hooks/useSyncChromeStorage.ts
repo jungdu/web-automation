@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useCommands from "./useCommands";
-import { getStoredData, storeData } from "../util/localStorage";
+import { getStoredData, storeData } from "@/util/localStorage";
 import { CommandState } from "../context/commandContext";
 import useCommandGroups from "./useCommandGroups";
 import { CommandGroupState } from "../context/commandGroupContext";

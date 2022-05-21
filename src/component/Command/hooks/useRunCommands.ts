@@ -3,32 +3,29 @@ import { useCommandProgressDispatch } from "../../../hooks/useCommandProgress";
 import { useCommandsState } from "../../../hooks/useCommands";
 import { executeCommands } from "@/util";
 import { openBrowser } from "@/util/ipc";
+import { CommandData, ParameterData } from "../type";
 
-export function useRunCommandGroup(connectedBrowserId: string | null) {
-	const { commands, startUrl, parameters } = useCommandsState();
+interface UseRunCommandGroupParam {
+	browserId: string;
+	commands: CommandData[];
+	parameters: ParameterData[];
+}
+
+export function useRunCommandGroup(params: UseRunCommandGroupParam) {
+	const { browserId, commands, parameters } = params;
 	const dispatch = useCommandProgressDispatch();
 	const toast = useToast();
 
 	return async function (repeatCount: number = 1) {
 		try {
-			let browserId = connectedBrowserId;
-			if (!connectedBrowserId) {
-				const { id } = await openBrowser(startUrl);
-				browserId = id;
-			}
-
-			if (!browserId) {
-				throw new Error("No browser id");
-			}
-
 			dispatch({
 				type: "StartCommand",
 				payload: {
 					commands,
-					browserId,
 				},
 			});
 
+			// CommandRunnerManager 사용하도록 executeCommand를로 대체 해야함
 			await executeCommands(browserId, commands, parameters, repeatCount, {
 				onCommandItemSuccess: (_, itemIdx) => {
 					dispatch({

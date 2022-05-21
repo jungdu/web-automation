@@ -9,19 +9,24 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import useCommands from "../../../hooks/useCommands";
-import { executeCommands } from "../../../util";
-import { openBrowser } from "../../../util/ipc";
+import { executeCommands } from "@/util";
+import { openBrowser } from "@/util/ipc";
 import InputNumber from "../../InputNumber";
+import useCommandProgress from "@/hooks/useCommandProgress";
 
 const OpenBrowserRow: React.FC = () => {
 	const {
-		commandsState: { startUrl, connectedBrowserId, commands, parameters },
-		dispatch,
+		commandsState: { startUrl, commands, parameters },
+		dispatch: commandsDispatch,
 	} = useCommands();
+	const {
+		commandProgress: { connectedBrowserId },
+		dispatch: commandProgressDispatch,
+	} = useCommandProgress();
 	const [repeatCount, setRepeatCount] = useState(1);
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		dispatch({
+		commandsDispatch({
 			type: "SetStartUrl",
 			startUrl: e.currentTarget.value,
 		});
@@ -51,14 +56,13 @@ const OpenBrowserRow: React.FC = () => {
 					marginRight="1"
 					onClick={async () => {
 						const { id } = await openBrowser(startUrl, () => {
-							dispatch({
-								type: "SetConnectedBrowserId",
-								connectedBrowserId: null,
+							commandProgressDispatch({
+								type: "DisconnectBrowser",
 							});
 						});
-						dispatch({
-							type: "SetConnectedBrowserId",
-							connectedBrowserId: id,
+						commandProgressDispatch({
+							type: "ConnectBrowser",
+							payload: { browserId: id },
 						});
 					}}
 					flex="42px 0 0"
