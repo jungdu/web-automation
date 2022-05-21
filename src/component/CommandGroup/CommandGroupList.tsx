@@ -21,7 +21,7 @@ const CommandGroupList: React.FC = () => {
 	}
 
 	return (
-		<VStack spacing={1}>
+		<VStack spacing={3}>
 			{commandGroups.map((commandGroup) => {
 				return (
 					<CommandGroupItem key={commandGroup.id} commandGroup={commandGroup} />

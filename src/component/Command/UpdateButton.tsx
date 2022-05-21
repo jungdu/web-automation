@@ -1,7 +1,8 @@
+import { getCurrentTime } from "@/util/time";
 import { Button, useToast } from "@chakra-ui/react";
 import React from "react";
-import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
-import { useCommandsDispatch, useCommandsState } from "../../hooks/useCommands";
+import { useCommandGroupsDispatch } from "@/hooks/useCommandGroups";
+import { useCommandsDispatch, useCommandsState } from "@/hooks/useCommands";
 
 const UpdateButton: React.FC = () => {
 	const { commands, currentCommandGroupId, startUrl, parameters, edited } =
@@ -16,7 +17,7 @@ const UpdateButton: React.FC = () => {
 				type: "UpdateCommandGroups",
 				commandGroupId: currentCommandGroupId,
 				commands,
-				lastEditedAt: new Date().getDate(),
+				lastEditedAt: getCurrentTime(),
 				startUrl,
 				parameters,
 			});

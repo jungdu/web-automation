@@ -17,6 +17,7 @@ import React from "react";
 import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
 import useInput from "../../hooks/useInput";
 import { deserializeCommandGroupData } from "@/util";
+import { getCurrentTime } from "@/util/time";
 
 const CopyButton: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +57,7 @@ const CopyButton: React.FC = () => {
 					startUrl,
 					id: nanoid(),
 					title,
-					createdAt: new Date().getDate(),
+					createdAt: getCurrentTime(),
 				},
 			});
 			toast({

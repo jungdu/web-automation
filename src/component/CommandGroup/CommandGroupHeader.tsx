@@ -30,7 +30,7 @@ const CommandGroupHeader: React.FC = () => {
 	};
 
 	return (
-		<Flex alignItems={"center"} marginBottom={"1"}>
+		<Flex alignItems={"center"} marginBottom={"5"}>
 			<Heading size="lg" color="gray.600">
 				자동화 리스트
 			</Heading>

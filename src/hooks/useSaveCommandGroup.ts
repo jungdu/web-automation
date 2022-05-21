@@ -2,6 +2,7 @@ import { useCommandGroupsDispatch } from "./useCommandGroups";
 import { useCommandsState } from "./useCommands";
 import { nanoid } from "nanoid";
 import { useToast } from "@chakra-ui/react";
+import { getCurrentTime } from "@/util/time";
 
 export default function useSaveCommandGroup() {
 	const { commands, startUrl, parameters } = useCommandsState();
@@ -13,7 +14,7 @@ export default function useSaveCommandGroup() {
 			type: "CreateCommandGroup",
 			commandGroupData: {
 				commands,
-				createdAt: new Date().getDate(),
+				createdAt: getCurrentTime(),
 				id: nanoid(),
 				parameters,
 				startUrl,
