@@ -10,7 +10,7 @@ const ExecuteButton: React.FC<{
 	command: CommandData;
 }> = ({ command }) => {
 	const { parameters } = useCommandsState();
-	const { connectedBrowserId } = useCommandProgressState();
+	const { connectedBrowserId, running } = useCommandProgressState();
 	const toast = useToast();
 
 	const handleClickExecute = async () => {
@@ -39,8 +39,7 @@ const ExecuteButton: React.FC<{
 			marginLeft="1"
 			onClick={handleClickExecute}
 			flex="42px 0 0"
-			// TODO running 일 때도 막아야함
-			disabled={!connectedBrowserId}
+			disabled={!connectedBrowserId || running}
 		>
 			<ChevronRightIcon w={8} h={8} />
 		</Button>

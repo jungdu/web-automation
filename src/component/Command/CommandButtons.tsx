@@ -3,17 +3,17 @@ import { useCommandsState } from "../../hooks/useCommands";
 import SaveButton from "./SaveButton";
 import UpdateButton from "./UpdateButton";
 import { Button, Flex, Spinner } from "@chakra-ui/react";
-import { useRunCommandGroup } from "./hooks/useRunCommandGroup";
 import { useCommandProgressState } from "../../hooks/useCommandProgress";
+import useRunCurrentCommands from "./hooks/useRunCurrentCommands";
 
 const CommandButtons: React.FC = () => {
 	const { currentCommandGroupId } = useCommandsState();
 	const { running } = useCommandProgressState();
-	const runCommandGroup = useRunCommandGroup(null);
+	const runCurrentCommands = useRunCurrentCommands(null);
 	const [repeatCount, setRepeatCount] = useState(1);
 
 	const handleClickRepeatExecuteAllCommand = async () => {
-		runCommandGroup(repeatCount);
+		runCurrentCommands();
 	};
 
 	return (
