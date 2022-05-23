@@ -13,7 +13,7 @@ export default function useCommandGroups() {
 export function useCommandGroupsState() {
 	const context = useContext(commandGroupContext);
 	if (!context) {
-		throw new Error("Invalid CommandContext");
+		throw new Error("Invalid CommandGroupContext");
 	}
 
 	return context.commandGroups;
@@ -22,7 +22,7 @@ export function useCommandGroupsState() {
 export function useCommandGroupsDispatch() {
 	const context = useContext(commandGroupContext);
 	if (!context) {
-		throw new Error("Invalid CommandContext");
+		throw new Error("Invalid CommandGroupContext");
 	}
 
 	return context.dispatch;
