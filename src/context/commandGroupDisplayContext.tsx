@@ -1,7 +1,7 @@
 import produce from "immer";
 import { createContext, useReducer } from "react";
 
-type OrderBy =
+export type OrderBy =
 	| "createdAtAsc"
 	| "createdAtDesc"
 	| "titleAsc"

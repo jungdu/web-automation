@@ -6,13 +6,29 @@ import CommandGroupItem from "./CommandGroupItem";
 
 function useFilteredOrderedCommandGroups() {
 	const {
-		commandGroupDisplayState: { searchWord },
+		commandGroupDisplayState: { searchWord, orderBy },
 	} = useCommandGroupDisplay();
 	const commandGroups = useCommandGroupsState();
 
-	return commandGroups.filter(
+	const filteredCommandGroups = commandGroups.filter(
 		(commandGroup) => commandGroup.title.indexOf(searchWord) !== -1
 	);
+	console.log("orderBy :", orderBy);
+	// @ts-expect-error
+	window.filteredCommandGroups = filteredCommandGroups;
+
+	switch (orderBy) {
+		case "createdAtAsc":
+			return filteredCommandGroups.sort((a, b) => b.createdAt - a.createdAt);
+		case "createdAtDesc":
+			return filteredCommandGroups.sort((a, b) => a.createdAt - b.createdAt);
+		case "titleAsc":
+			return filteredCommandGroups.sort((a, b) => (a.title < b.title ? -1 : 0));
+		case "titleDesc":
+			return filteredCommandGroups.sort((a, b) => (a.title < b.title ? 0 : -1));
+		default:
+			return filteredCommandGroups;
+	}
 }
 
 const CommandGroupList: React.FC = () => {

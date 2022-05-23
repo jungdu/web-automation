@@ -10,7 +10,7 @@ const GroupTitleSearchInput: React.FC = () => {
 	} = useCommandGroupDisplay();
 
 	return (
-		<InputGroup marginLeft="auto" width="200px">
+		<InputGroup marginLeft="1" width="200px">
 			<InputLeftElement
 				pointerEvents="none"
 				children={<SearchIcon color="gray.300" />}
