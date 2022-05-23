@@ -14,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
 import React from "react";
-import { useCommandGroupsDispatch } from "../../hooks/useCommandGroups";
-import useInput from "../../hooks/useInput";
+import { useCommandGroupsDispatch } from "@/hooks/useCommandGroups";
+import useInput from "@/hooks/useInput";
 import { deserializeCommandGroupData } from "@/util";
 import { getCurrentTime } from "@/util/time";
 
@@ -80,7 +80,7 @@ const CopyButton: React.FC = () => {
 
 	return (
 		<>
-			<Button marginLeft="1" onClick={handleClickOpen}>
+			<Button marginX="1" onClick={handleClickOpen} flexShrink="0">
 				불러오기
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
