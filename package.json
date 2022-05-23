@@ -15,7 +15,7 @@
     "build": "yarn build:client && yarn build:main",
     "dev:client": "vite",
     "dev:main": "tsc-watch -p tsconfig.electron.json --onSuccess \"yarn start:electron\"",
-    "package": "yarn build && electron-builder",
+    "package": "rm -rf packaged && yarn build && electron-builder",
     "preview": "vite preview",
     "start:electron": "NODE_ENV=development electron ./dist/electron/main.js",
     "start:main": "yarn build:main && yarn start:electron"
