@@ -3,14 +3,14 @@ import React from "react";
 import { useCommandProgressState } from "../../hooks/useCommandProgress";
 
 const CommandProgress: React.FC = () => {
-	const { progress, failed } = useCommandProgressState();
+	const { progress, failed, running } = useCommandProgressState();
 	return (
 		<Box height="3">
 			<Progress
 				hasStripe
 				value={progress}
 				colorScheme={failed ? "red" : "green"}
-				isAnimated
+				isAnimated={running}
 			/>
 		</Box>
 	);
