@@ -8,7 +8,7 @@ const CreateParameterButton: React.FC = () => {
 
 	return (
 		<>
-			<Tooltip label="파라미터 추가">
+			<Tooltip label="파라미터 추가" placement="top">
 				<Button
 					colorScheme={"blue"}
 					variant="ghost"

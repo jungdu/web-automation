@@ -13,7 +13,7 @@ const LinkBrowserButton: React.FC = () => {
 	} = useCommandProgress();
 
 	return (
-		<Tooltip label="동작 리스트와 연결된 브라우저 실행">
+		<Tooltip label="동작 리스트와 연결된 브라우저 실행" placement="top">
 			<Button
 				disabled={!!connectedBrowserId}
 				colorScheme={"green"}

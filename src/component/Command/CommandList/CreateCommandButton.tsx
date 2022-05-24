@@ -11,7 +11,7 @@ const CreateCommandButton: React.FC = () => {
 	};
 
 	return (
-		<Tooltip label="동작 추가">
+		<Tooltip label="동작 추가" placement="top">
 			<Button
 				colorScheme={"blue"}
 				variant="ghost"
