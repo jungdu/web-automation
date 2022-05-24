@@ -16,14 +16,6 @@ const CommandGroupHeader: React.FC = () => {
 
 	return (
 		<>
-			<Flex alignItems={"center"} marginBottom="1">
-				<Heading size="lg" color="gray.600">
-					자동화 리스트
-				</Heading>
-				<Button marginLeft="auto" onClick={handleClickBack}>
-					<ArrowBackIcon fontSize={"2xl"} />
-				</Button>
-			</Flex>
 			<Flex marginBottom={"5"} alignItems="center">
 				<CreateCommandGroupButton />
 				<ImportCommandGroupButton />

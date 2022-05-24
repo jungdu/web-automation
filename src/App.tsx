@@ -5,6 +5,7 @@ import { routes } from "./constants";
 import { CommandContextGroupProvider } from "./context/commandGroupContext";
 import Command from "./component/Command";
 import ChromeStorageSync from "./component/ChromeStorageSync";
+import Navbar from "./component/Navbar";
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 			<CommandContextGroupProvider>
 				<ChromeStorageSync>
 					<MemoryRouter>
+						<Navbar />
 						<Routes>
 							<Route
 								path={routes.home}
