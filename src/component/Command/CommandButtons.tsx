@@ -5,6 +5,7 @@ import UpdateButton from "./UpdateButton";
 import { Button, Flex, Spinner } from "@chakra-ui/react";
 import { useCommandProgressState } from "../../hooks/useCommandProgress";
 import useRunCurrentCommands from "./hooks/useRunCurrentCommands";
+import ResetCommandButton from "./ResetCommandButton";
 
 const CommandButtons: React.FC = () => {
 	const { currentCommandGroupId } = useCommandsState();
@@ -38,6 +39,7 @@ const CommandButtons: React.FC = () => {
 				{running ? <Spinner /> : "실행"}
 			</Button>
 			{currentCommandGroupId ? <UpdateButton /> : <SaveButton />}
+			{currentCommandGroupId && <ResetCommandButton />}
 		</Flex>
 	);
 };
