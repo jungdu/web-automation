@@ -16,7 +16,7 @@ const CommandGroupHeader: React.FC = () => {
 
 	return (
 		<>
-			<Flex marginBottom={"5"} alignItems="center">
+			<Flex marginBottom={"3"} alignItems="center">
 				<CreateCommandGroupButton />
 				<ImportCommandGroupButton />
 				<OrderBySelector />

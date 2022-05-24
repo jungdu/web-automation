@@ -14,7 +14,12 @@ const CreateCommandGroupButton: React.FC = () => {
 			commandState: {
 				currentCommandGroupId: null,
 				startUrl: "",
-				commands: [],
+				commands: [
+					{
+						type: "click",
+						selector: "",
+					},
+				],
 				parameters: [],
 				edited: false,
 			},
