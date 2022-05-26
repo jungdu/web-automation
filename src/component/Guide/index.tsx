@@ -7,7 +7,7 @@ const Guide: React.FC = () => {
 			<iframe
 				frameBorder={"none"}
 				width="100%"
-				height="800px"
+				height="4500px"
 				src="data:text/html;charset=utf-8,
     <head><base target='_blank' /></head>
     <body><script src='https://gist.github.com/jungdu/cc2d22df7c37b043d82a7ee3a7fa3711.js'></script>
