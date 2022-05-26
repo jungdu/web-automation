@@ -7,6 +7,7 @@ import Command from "./component/Command";
 import ChromeStorageSync from "./component/ChromeStorageSync";
 import Navbar from "./component/Navbar";
 import Guide from "./component/Guide";
+import ExampleCommandGroup from "./component/ExampleCommandGroup";
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 							<Route path={routes.editor} element={<Command />} />
 							<Route path={routes.group} element={<CommandGroup />} />
 							<Route path={routes.guide} element={<Guide />} />
+							<Route path={routes.examples} element={<ExampleCommandGroup />} />
 						</Routes>
 					</MemoryRouter>
 				</ChromeStorageSync>

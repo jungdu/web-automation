@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
 			<Flex maxWidth="1000px" margin="0 auto" padding="1">
 				<NavButton text="자동화 리스트" linkTo={routes.group} />
 				<NavButton text="사용 방법" linkTo={routes.guide} />
-				<NavButton text="사용 예제" linkTo={routes.examples} />
+				{/* <NavButton text="사용 예제" linkTo={routes.examples} /> */}
 			</Flex>
 		</Box>
 	);
