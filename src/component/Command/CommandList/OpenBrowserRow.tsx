@@ -4,6 +4,7 @@ import InputNumber from "../../InputNumber";
 import RunAllCommandsButton from "./RunAllCommandsButton";
 import StartUrlInput from "./StartUrlInput";
 import LinkBrowserButton from "./LinkBrowserButton";
+import StopProgressButton from "../StopProgressButton";
 
 const OpenBrowserRow: React.FC = () => {
 	const [repeatCount, setRepeatCount] = useState(1);
@@ -24,6 +25,7 @@ const OpenBrowserRow: React.FC = () => {
 				onChange={handleChangeRepeatCount}
 			/>
 			<RunAllCommandsButton />
+			<StopProgressButton />
 		</Flex>
 	);
 };

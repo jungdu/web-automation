@@ -49,6 +49,7 @@ const SaveButton: React.FC = () => {
 				onClick={() => {
 					onOpen();
 				}}
+				marginLeft="2"
 			>
 				저장
 			</Button>

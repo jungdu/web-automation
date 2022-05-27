@@ -6,8 +6,10 @@ interface CommandRunnerParam {
 	commands: CommandData[];
 	parameters: ParameterData[];
 	repeatCount: number;
-	callbacks?: {
+	callbacks: {
 		onCommandItemSuccess?: (repeatIdx: number, commandIdx: number) => void;
+		onCommandsSuccess?: () => void;
+		onError: (e: Error) => void;
 	};
 }
 
@@ -20,15 +22,20 @@ class CommandRunner {
 		const { browserId, commands, repeatCount, parameters, callbacks } =
 			this.runnerParam;
 
-		for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
-			for (const [itemIdx, command] of commands.entries()) {
-				if (this.stopped) {
-					return;
+		try {
+			for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
+				for (const [itemIdx, command] of commands.entries()) {
+					if (this.stopped) {
+						return;
+					}
+					await executeCommand(browserId, command, parameters);
+					callbacks?.onCommandItemSuccess?.(repeatIdx, itemIdx);
 				}
-
-				await executeCommand(browserId, command, parameters);
-				callbacks?.onCommandItemSuccess?.(repeatIdx, itemIdx);
 			}
+
+			callbacks?.onCommandsSuccess?.();
+		} catch (e) {
+			callbacks.onError(e as Error);
 		}
 	}
 

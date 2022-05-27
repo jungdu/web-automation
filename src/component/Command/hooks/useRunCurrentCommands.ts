@@ -7,7 +7,7 @@ export default function useRunCurrentCommands(browserId: null | string) {
 	const runCommands = useRunCommands();
 
 	return async function (repeatCount: number = 1) {
-		await runCommands({
+		runCommands({
 			browserId: browserId ? browserId : (await openBrowser(startUrl)).id,
 			commands,
 			parameters,

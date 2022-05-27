@@ -35,13 +35,18 @@ interface SuccessProgressAction {
 	type: "SuccessProgress";
 }
 
+interface StopProgressAction {
+	type: "StopProgress";
+}
+
 type CommandProgressAction =
 	| StartCommandAction
 	| FailedCommandAction
 	| UpdateProgressAction
 	| SuccessProgressAction
 	| ConnectBrowserAction
-	| DisconnectBrowserAction;
+	| DisconnectBrowserAction
+	| StopProgressAction;
 
 export interface CommandProgressState {
 	connectedBrowserId: string | null;
@@ -85,6 +90,10 @@ function commandProgressReducer(
 					((action.payload.successItemIdx + 1) / state.commands.length) * 100;
 			});
 		case "SuccessProgress":
+			return produce(state, (draft) => {
+				draft.running = false;
+			});
+		case "StopProgress":
 			return produce(state, (draft) => {
 				draft.running = false;
 			});

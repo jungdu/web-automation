@@ -34,7 +34,7 @@ const UpdateButton: React.FC = () => {
 	};
 
 	return (
-		<Button onClick={handleClick} disabled={!edited}>
+		<Button onClick={handleClick} disabled={!edited} marginLeft="2">
 			업데이트
 		</Button>
 	);

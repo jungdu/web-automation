@@ -6,6 +6,8 @@ import { Button, Flex, Spinner } from "@chakra-ui/react";
 import { useCommandProgressState } from "../../hooks/useCommandProgress";
 import useRunCurrentCommands from "./hooks/useRunCurrentCommands";
 import ResetCommandButton from "./ResetCommandButton";
+import PlayIcon from "@/component/Icon/PlayIcon";
+import StopProgressButton from "./StopProgressButton";
 
 const CommandButtons: React.FC = () => {
 	const { currentCommandGroupId } = useCommandsState();
@@ -33,11 +35,12 @@ const CommandButtons: React.FC = () => {
 			<Button
 				colorScheme={"green"}
 				onClick={handleClickRepeatExecuteAllCommand}
-				marginRight={2}
 				disabled={running}
+				paddingX="10px"
 			>
-				{running ? <Spinner /> : "실행"}
+				{running ? <Spinner /> : <PlayIcon />}
 			</Button>
+			<StopProgressButton />
 			{currentCommandGroupId ? <UpdateButton /> : <SaveButton />}
 			{currentCommandGroupId && <ResetCommandButton />}
 		</Flex>
