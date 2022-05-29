@@ -13,7 +13,7 @@ const RunAllCommandsButton: React.FC = () => {
 	}
 
 	return (
-		<Tooltip label="모든 동작 실행">
+		<Tooltip label="모든 동작 실행" placement="top">
 			<Button
 				disabled={!browserId || running}
 				colorScheme={"green"}
