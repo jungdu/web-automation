@@ -1,4 +1,5 @@
 import useConnectedBrowserProgress from "@/hooks/useConnectedBrowserProgress";
+import { executeCommand } from "@/util";
 import { openBrowser } from "@/util/ipc";
 import { LinkIcon } from "@chakra-ui/icons";
 import { Box, Button, Tooltip, keyframes } from "@chakra-ui/react";
@@ -13,6 +14,9 @@ const animationKeyframes = keyframes`
 
 const animation = `${animationKeyframes} 1.2s infinite`;
 
+const connectBrowserGuideUrl =
+	"https://gist.github.com/jungdu/cc2d22df7c37b043d82a7ee3a7fa3711#file-2-connect_browser-md";
+
 const LinkBrowserButton: React.FC = () => {
 	const {
 		dispatch,
@@ -25,6 +29,14 @@ const LinkBrowserButton: React.FC = () => {
 				type: "DisconnectBrowser",
 			});
 		});
+		await executeCommand(
+			id,
+			{
+				type: "replacePage",
+				href: connectBrowserGuideUrl,
+			},
+			null
+		);
 		dispatch({
 			type: "ConnectBrowser",
 			payload: { browserId: id },
