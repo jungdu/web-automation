@@ -8,7 +8,8 @@ export default function useRunCurrentCommands(browserId: null | string) {
 
 	return async function (repeatCount: number = 1) {
 		runCommands({
-			browserId: browserId ? browserId : (await openBrowser(startUrl)).id,
+			browserId: browserId ? browserId : (await openBrowser()).id,
+			startUrl,
 			commands,
 			parameters,
 			repeatCount,

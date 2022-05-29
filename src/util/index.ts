@@ -20,9 +20,11 @@ function applyParameter(
 export async function executeCommand(
 	browserId: string,
 	origCommand: CommandData,
-	parameters: ParameterData[]
+	parameters: ParameterData[] | null
 ) {
-	const command = applyParameter(origCommand, parameters);
+	const command = parameters
+		? applyParameter(origCommand, parameters)
+		: origCommand;
 
 	switch (command.type) {
 		case "delay":
@@ -44,39 +46,10 @@ export async function executeCommand(
 	// TODO
 }
 
-export async function executeCommands(
-	browserId: string,
-	commands: CommandData[],
-	parameters: ParameterData[],
-	repeatCount: number = 1,
-	callbacks?: {
-		onCommandItemSuccess?: (repeatIdx: number, commandIdx: number) => void;
-	}
-) {
-	for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
-		for (const [itemIdx, command] of commands.entries()) {
-			await executeCommand(browserId, command, parameters);
-			callbacks &&
-				callbacks.onCommandItemSuccess &&
-				callbacks.onCommandItemSuccess(repeatIdx, itemIdx);
-		}
-	}
-}
-
 function delay(seconds: number) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, seconds * 1000);
 	});
-}
-
-export async function runCommandGroup(
-	startUrl: string,
-	commands: CommandData[],
-	parameters: ParameterData[],
-	repeatCount: number = 1
-) {
-	const { id } = await openBrowser(startUrl);
-	await executeCommands(id, commands, parameters, repeatCount);
 }
 
 export function serializeCommandGroupData(

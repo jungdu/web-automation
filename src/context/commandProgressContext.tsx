@@ -49,7 +49,7 @@ type CommandProgressAction =
 	| StopProgressAction;
 
 export interface CommandProgressState {
-	connectedBrowserId: string | null;
+	browserId: string | null;
 	commands: CommandData[];
 	failed: boolean;
 	progress: number;
@@ -57,7 +57,7 @@ export interface CommandProgressState {
 }
 
 const initialCommandProgressState: CommandProgressState = {
-	connectedBrowserId: null,
+	browserId: null,
 	running: false,
 	failed: false,
 	progress: 0,
@@ -72,7 +72,7 @@ function commandProgressReducer(
 		case "StartCommand":
 			return produce(state, (draft) => {
 				if (action.payload.browserId) {
-					draft.connectedBrowserId = action.payload.browserId;
+					draft.browserId = action.payload.browserId;
 				}
 				draft.failed = false;
 				draft.commands = action.payload.commands;
@@ -100,7 +100,7 @@ function commandProgressReducer(
 		case "ConnectBrowser":
 			return {
 				...initialCommandProgressState,
-				connectedBrowserId: action.payload.browserId,
+				browserId: action.payload.browserId,
 			};
 		case "DisconnectBrowser":
 			return {
@@ -134,5 +134,30 @@ export const CommandProgressProvider: React.FC<{
 		>
 			{children}
 		</commandProgressContext.Provider>
+	);
+};
+
+export const connectedBrowserProgressContext = createContext<{
+	commandProgress: CommandProgressState;
+	dispatch: React.Dispatch<CommandProgressAction>;
+} | null>(null);
+
+export const ConnectedBrowserProgressProvider: React.FC<{
+	children: JSX.Element;
+}> = ({ children }) => {
+	const [commandProgress, dispatch] = useReducer(
+		commandProgressReducer,
+		initialCommandProgressState
+	);
+
+	return (
+		<connectedBrowserProgressContext.Provider
+			value={{
+				commandProgress,
+				dispatch,
+			}}
+		>
+			{children}
+		</connectedBrowserProgressContext.Provider>
 	);
 };

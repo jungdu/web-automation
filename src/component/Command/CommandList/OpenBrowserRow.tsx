@@ -1,31 +1,25 @@
-import { Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
-import InputNumber from "../../InputNumber";
+import { Button, Flex } from "@chakra-ui/react";
+import React from "react";
 import RunAllCommandsButton from "./RunAllCommandsButton";
 import StartUrlInput from "./StartUrlInput";
-import LinkBrowserButton from "./LinkBrowserButton";
-import StopProgressButton from "../StopProgressButton";
+import AutoRenewIcon from "@/component/Icon/AutoRenewIcon";
+import { useConnectedBrowserProgressState } from "@/hooks/useConnectedBrowserProgress";
 
 const OpenBrowserRow: React.FC = () => {
-	const [repeatCount, setRepeatCount] = useState(1);
-
-	const handleChangeRepeatCount = (event: string) => {
-		const count = Number.parseInt(event);
-		setRepeatCount(count > 1 ? count : 1);
-	};
+	const { browserId, running } = useConnectedBrowserProgressState();
 
 	return (
 		<Flex marginTop="1">
 			<StartUrlInput />
-			<LinkBrowserButton />
-			<InputNumber
-				flex="70px 0 0"
-				min={1}
-				value={repeatCount}
-				onChange={handleChangeRepeatCount}
-			/>
+			<Button
+				colorScheme={"green"}
+				paddingX="5px"
+				marginRight="1"
+				disabled={!browserId || running}
+			>
+				<AutoRenewIcon />
+			</Button>
 			<RunAllCommandsButton />
-			<StopProgressButton />
 		</Flex>
 	);
 };

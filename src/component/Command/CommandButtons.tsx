@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCommandsState } from "../../hooks/useCommands";
 import SaveButton from "./SaveButton";
 import UpdateButton from "./UpdateButton";
-import { Button, Flex, Spinner } from "@chakra-ui/react";
+import { Button, Flex, Spinner, Tooltip } from "@chakra-ui/react";
 import { useCommandProgressState } from "../../hooks/useCommandProgress";
 import useRunCurrentCommands from "./hooks/useRunCurrentCommands";
 import ResetCommandButton from "./ResetCommandButton";
@@ -32,14 +32,16 @@ const CommandButtons: React.FC = () => {
 					setRepeatCount(nextCount >= 1 ? nextCount : 1);
 				}}
 			/> */}
-			<Button
-				colorScheme={"green"}
-				onClick={handleClickRepeatExecuteAllCommand}
-				disabled={running}
-				paddingX="10px"
-			>
-				{running ? <Spinner /> : <PlayIcon />}
-			</Button>
+			<Tooltip label={running ? "" : "실행"}>
+				<Button
+					colorScheme={"green"}
+					onClick={handleClickRepeatExecuteAllCommand}
+					disabled={running}
+					paddingX="10px"
+				>
+					{running ? <Spinner /> : <PlayIcon />}
+				</Button>
+			</Tooltip>
 			<StopProgressButton />
 			{currentCommandGroupId ? <UpdateButton /> : <SaveButton />}
 			{currentCommandGroupId && <ResetCommandButton />}

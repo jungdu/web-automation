@@ -29,7 +29,7 @@ class BrowserCtrl {
 		return browserInfo;
 	}
 
-	async createBrowser(startUrl: string, onClose?: () => void) {
+	async createBrowser(onClose?: () => void) {
 		const browserId = nanoid();
 
 		const browser = await chromium.launch({
@@ -58,13 +58,6 @@ class BrowserCtrl {
 
 			this.deleteBrowserInfo(browserId);
 		});
-
-		try {
-			await page.goto(startUrl);
-		} catch (e) {
-			browser.close();
-			throw new Error("Invalid startUrl");
-		}
 
 		return browserId;
 	}

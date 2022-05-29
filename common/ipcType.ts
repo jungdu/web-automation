@@ -1,8 +1,6 @@
 export interface OpenBrowserMessage {
 	type: "openBrowser";
-	param: {
-		startUrl: string;
-	};
+	param: null;
 	return: {
 		id: string;
 	};

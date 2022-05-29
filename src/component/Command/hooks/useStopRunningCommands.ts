@@ -3,7 +3,7 @@ import { commandRunnerManager } from "@/managers/CommandRunnerManager";
 
 export default function useStopRunningCommands() {
 	const {
-		commandProgress: { running, connectedBrowserId },
+		commandProgress: { running, browserId },
 		dispatch,
 	} = useCommandProgress();
 
@@ -12,8 +12,8 @@ export default function useStopRunningCommands() {
 			throw new Error("Can not stop because commands is not running");
 		}
 
-		if (connectedBrowserId) {
-			commandRunnerManager.stopCommands(connectedBrowserId);
+		if (browserId) {
+			commandRunnerManager.stopCommands(browserId);
 			dispatch({
 				type: "StopProgress",
 			});

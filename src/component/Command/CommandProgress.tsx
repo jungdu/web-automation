@@ -1,6 +1,6 @@
 import { Box, Progress } from "@chakra-ui/react";
 import React from "react";
-import { useCommandProgressState } from "../../hooks/useCommandProgress";
+import { useCommandProgressState } from "@/hooks/useCommandProgress";
 
 const CommandProgress: React.FC = () => {
 	const { progress, failed, running } = useCommandProgressState();

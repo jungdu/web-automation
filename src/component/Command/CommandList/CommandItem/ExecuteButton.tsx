@@ -4,19 +4,19 @@ import React from "react";
 import { useCommandsState } from "../../../../hooks/useCommands";
 import { executeCommand } from "@/util";
 import { CommandData } from "../../type";
-import { useCommandProgressState } from "@/hooks/useCommandProgress";
+import { useConnectedBrowserProgressState } from "@/hooks/useConnectedBrowserProgress";
 
 const ExecuteButton: React.FC<{
 	command: CommandData;
 }> = ({ command }) => {
 	const { parameters } = useCommandsState();
-	const { connectedBrowserId, running } = useCommandProgressState();
+	const { browserId, running } = useConnectedBrowserProgressState();
 	const toast = useToast();
 
 	const handleClickExecute = async () => {
-		if (connectedBrowserId) {
+		if (browserId) {
 			try {
-				await executeCommand(connectedBrowserId, command, parameters);
+				await executeCommand(browserId, command, parameters);
 			} catch (e) {
 				if (e instanceof Error) {
 					toast({
@@ -39,7 +39,7 @@ const ExecuteButton: React.FC<{
 			marginLeft="1"
 			onClick={handleClickExecute}
 			flex="42px 0 0"
-			disabled={!connectedBrowserId || running}
+			disabled={!browserId || running}
 		>
 			<ChevronRightIcon w={8} h={8} />
 		</Button>

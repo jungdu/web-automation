@@ -9,8 +9,8 @@ import {
 
 const ipcRenderer = window.ipcRenderer;
 
-export async function openBrowser(startUrl: string, onClose?: () => void) {
-	const { id } = await invoke<OpenBrowserMessage>("openBrowser", { startUrl });
+export async function openBrowser(onClose?: () => void) {
+	const { id } = await invoke<OpenBrowserMessage>("openBrowser", null);
 
 	if (onClose) {
 		ipcRenderer.once(getCloseBrowserEventName(id), onClose);

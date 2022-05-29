@@ -7,7 +7,6 @@ import {
 	ReplacePageMessage,
 } from "../common/ipcType";
 import { browserCtrl } from "./BrowserCtrl";
-import { mainWindowCtrl } from "./MainWindowCtrl";
 
 function addIpcMainHandler<T extends IpcMessage>(
 	type: T["type"],
@@ -20,17 +19,12 @@ function addIpcMainHandler<T extends IpcMessage>(
 }
 
 export function addIpcHandlers() {
-	addIpcMainHandler<OpenBrowserMessage>(
-		"openBrowser",
-		async (e, { startUrl }) => {
-			const mainWindow = mainWindowCtrl.getMainWindow();
-			mainWindow.webContents.send("ssibal");
-			const browserId = await browserCtrl.createBrowser(startUrl);
-			return {
-				id: browserId,
-			};
-		}
-	);
+	addIpcMainHandler<OpenBrowserMessage>("openBrowser", async (e) => {
+		const browserId = await browserCtrl.createBrowser();
+		return {
+			id: browserId,
+		};
+	});
 
 	addIpcMainHandler<ClickElementMessage>(
 		"clickElement",

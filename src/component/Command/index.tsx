@@ -10,7 +10,7 @@ import ParameterList from "./ParameterList";
 const Command: React.FC = () => {
 	return (
 		<Container maxWidth="800px">
-			<Flex width="100%" direction={"column"} padding="3">
+			<Flex width="100%" direction={"column"}>
 				<CommandHeader />
 				<CommandProgressProvider>
 					<>
@@ -19,9 +19,7 @@ const Command: React.FC = () => {
 					</>
 				</CommandProgressProvider>
 				<ParameterList />
-				<CommandProgressProvider>
-					<CommandList />
-				</CommandProgressProvider>
+				<CommandList />
 			</Flex>
 		</Container>
 	);

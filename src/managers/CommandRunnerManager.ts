@@ -3,6 +3,7 @@ import { executeCommand } from "@/util";
 
 interface CommandRunnerParam {
 	browserId: string;
+	startUrl: string;
 	commands: CommandData[];
 	parameters: ParameterData[];
 	repeatCount: number;
@@ -19,11 +20,22 @@ class CommandRunner {
 	constructor(private runnerParam: CommandRunnerParam) {}
 
 	async run() {
-		const { browserId, commands, repeatCount, parameters, callbacks } =
-			this.runnerParam;
+		const {
+			browserId,
+			startUrl,
+			commands,
+			repeatCount,
+			parameters,
+			callbacks,
+		} = this.runnerParam;
 
 		try {
 			for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
+				await executeCommand(
+					browserId,
+					{ type: "replacePage", href: startUrl },
+					null
+				);
 				for (const [itemIdx, command] of commands.entries()) {
 					if (this.stopped) {
 						return;

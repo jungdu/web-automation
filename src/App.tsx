@@ -8,26 +8,32 @@ import ChromeStorageSync from "./component/ChromeStorageSync";
 import Navbar from "./component/Navbar";
 import Guide from "./component/Guide";
 import ExampleCommandGroup from "./component/ExampleCommandGroup";
+import { ConnectedBrowserProgressProvider } from "./context/commandProgressContext";
 
 function App() {
 	return (
 		<CommandContextProvider>
 			<CommandContextGroupProvider>
-				<ChromeStorageSync>
-					<MemoryRouter>
-						<Navbar />
-						<Routes>
-							<Route
-								path={routes.home}
-								element={<Navigate to={routes.group} />}
-							></Route>
-							<Route path={routes.editor} element={<Command />} />
-							<Route path={routes.group} element={<CommandGroup />} />
-							<Route path={routes.guide} element={<Guide />} />
-							<Route path={routes.examples} element={<ExampleCommandGroup />} />
-						</Routes>
-					</MemoryRouter>
-				</ChromeStorageSync>
+				<ConnectedBrowserProgressProvider>
+					<ChromeStorageSync>
+						<MemoryRouter>
+							<Navbar />
+							<Routes>
+								<Route
+									path={routes.home}
+									element={<Navigate to={routes.group} />}
+								></Route>
+								<Route path={routes.editor} element={<Command />} />
+								<Route path={routes.group} element={<CommandGroup />} />
+								<Route path={routes.guide} element={<Guide />} />
+								<Route
+									path={routes.examples}
+									element={<ExampleCommandGroup />}
+								/>
+							</Routes>
+						</MemoryRouter>
+					</ChromeStorageSync>
+				</ConnectedBrowserProgressProvider>
 			</CommandContextGroupProvider>
 		</CommandContextProvider>
 	);

@@ -1,11 +1,11 @@
 import { useToast } from "@chakra-ui/react";
 import { useCommandProgressDispatch } from "@/hooks/useCommandProgress";
-import { executeCommands } from "@/util";
 import { CommandData, ParameterData } from "../type";
 import { commandRunnerManager } from "@/managers/CommandRunnerManager";
 
 interface UseRunCommandGroupParam {
 	browserId: string;
+	startUrl: string;
 	commands: CommandData[];
 	parameters: ParameterData[];
 	repeatCount: number;
@@ -16,7 +16,7 @@ export default function useRunCommands() {
 	const toast = useToast();
 
 	return function (params: UseRunCommandGroupParam) {
-		const { browserId, commands, parameters, repeatCount } = params;
+		const { browserId, commands, parameters, repeatCount, startUrl } = params;
 
 		console.log("StartCommand");
 		dispatch({
@@ -29,6 +29,7 @@ export default function useRunCommands() {
 		commandRunnerManager.runCommands({
 			browserId,
 			commands,
+			startUrl,
 			parameters,
 			repeatCount,
 			callbacks: {
