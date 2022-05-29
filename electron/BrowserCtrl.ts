@@ -50,9 +50,11 @@ class BrowserCtrl {
 				onClose();
 			}
 
-			mainWindowCtrl
-				.getMainWindowContents()
-				.send(getCloseBrowserEventName(browserId));
+			if (!mainWindowCtrl.closed) {
+				mainWindowCtrl
+					.getMainWindowContents()
+					.send(getCloseBrowserEventName(browserId));
+			}
 
 			browser.close();
 

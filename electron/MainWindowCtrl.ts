@@ -1,4 +1,4 @@
-import { BrowserWindow } from "electron";
+import { app, BrowserWindow } from "electron";
 import * as path from "path";
 
 function isDev() {
@@ -7,6 +7,7 @@ function isDev() {
 
 class MainWindowCtrl {
 	mainWindow: null | BrowserWindow = null;
+	closed = false;
 
 	createWindow() {
 		const window = new BrowserWindow({
@@ -26,6 +27,11 @@ class MainWindowCtrl {
 			window.loadFile(path.join(__dirname, "../client/index.html"));
 		}
 
+		window.on("closed", () => {
+			this.closed = true;
+		});
+
+		this.closed = false;
 		this.mainWindow = window;
 	}
 
