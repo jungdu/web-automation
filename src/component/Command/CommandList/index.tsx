@@ -3,7 +3,7 @@ import React from "react";
 import CommandItem from "./CommandItem";
 import { useCommandsState } from "../../../hooks/useCommands";
 import CommandListTitle from "./CommandListTitle";
-import OpenBrowserRow from "./OpenBrowserRow";
+import StartUrlRow from "./StartUrlRow";
 import { DraggableListProvider } from "../../../context/draggableListContext";
 
 const CommandList: React.FC = () => {
@@ -12,7 +12,7 @@ const CommandList: React.FC = () => {
 	return (
 		<>
 			<CommandListTitle />
-			<OpenBrowserRow />
+			<StartUrlRow />
 			<DraggableListProvider>
 				<Flex direction={"column"} overflowY={"scroll"} paddingBottom="2">
 					{commands.length > 0 ? (
