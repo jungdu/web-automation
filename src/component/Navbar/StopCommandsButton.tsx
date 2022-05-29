@@ -3,7 +3,7 @@ import useConnectedBrowserProgress, {
 	useConnectedBrowserProgressState,
 } from "@/hooks/useConnectedBrowserProgress";
 import { commandRunnerManager } from "@/managers/CommandRunnerManager";
-import { Button } from "@chakra-ui/react";
+import { Button, Tooltip } from "@chakra-ui/react";
 import React from "react";
 
 function useStopRunningCommands() {
@@ -35,16 +35,18 @@ const StopCommandsButton: React.FC = () => {
 	}
 
 	return (
-		<Button
-			colorScheme={"pink"}
-			paddingX={"2px"}
-			marginLeft={1}
-			flex="42px 0 0"
-			onClick={handleClick}
-			disabled={!running}
-		>
-			<PauseIcon />
-		</Button>
+		<Tooltip placement="bottom" label="실행중인 작업 정지">
+			<Button
+				colorScheme={"pink"}
+				paddingX={"2px"}
+				marginLeft={1}
+				flex="42px 0 0"
+				onClick={handleClick}
+				disabled={!running}
+			>
+				<PauseIcon />
+			</Button>
+		</Tooltip>
 	);
 };
 
