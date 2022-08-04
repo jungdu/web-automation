@@ -24,7 +24,8 @@ const GotoStartUrlButton: React.FC = () => {
 				marginLeft="1"
 				onClick={handleClick}
 				flex="42px 0 0"
-				disabled={!browserId || running}
+				// TODO 왜 disable 되었는지 사용자에게 노출이 필요할 듯
+				disabled={!browserId || !startUrl || running}
 			>
 				<ChevronRightIcon w={8} h={8} />
 			</Button>

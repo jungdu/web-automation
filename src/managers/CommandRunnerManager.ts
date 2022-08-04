@@ -31,11 +31,14 @@ class CommandRunner {
 
 		try {
 			for (const repeatIdx of new Array(repeatCount).fill(0).map((_, i) => i)) {
-				await executeCommand(
-					browserId,
-					{ type: "replacePage", href: startUrl },
-					null
-				);
+				if (startUrl) {
+					await executeCommand(
+						browserId,
+						{ type: "replacePage", href: startUrl },
+						null
+					);
+				}
+
 				for (const [itemIdx, command] of commands.entries()) {
 					if (this.stopped) {
 						return;
