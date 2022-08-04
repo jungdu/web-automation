@@ -15,7 +15,7 @@ interface CommandGroupDisplayState {
 
 const initialState: CommandGroupDisplayState = {
 	searchWord: "",
-	orderBy: null,
+	orderBy: "createdAtAsc",
 };
 
 interface InitDisplayConditionAction {

@@ -32,7 +32,6 @@ const OrderBySelector: React.FC = () => {
 		<Select
 			marginLeft="auto"
 			flex="130px 0 0"
-			placeholder="리스트 정렬"
 			value={orderBy || ""}
 			onChange={(event) => {
 				dispatch({
