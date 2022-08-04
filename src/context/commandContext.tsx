@@ -116,7 +116,6 @@ function getDefaultCommand(type: CommandType): CommandData {
 		case "input":
 			return {
 				type: "input",
-				selector: "",
 				value: "",
 			};
 		default:

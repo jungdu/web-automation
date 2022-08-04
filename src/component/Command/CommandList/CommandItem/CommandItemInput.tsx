@@ -59,16 +59,6 @@ const CommandItemInput: React.FC<{
 			return (
 				<>
 					<Input
-						placeholder="Selector"
-						value={command.selector}
-						errorBorderColor="red.200"
-						isInvalid={!command.selector}
-						onChange={(event) => {
-							handleChange({ ...command, selector: event.currentTarget.value });
-						}}
-						marginRight="1"
-					/>
-					<Input
 						placeholder="Target selector"
 						value={command.value}
 						errorBorderColor="red.200"

@@ -3,7 +3,7 @@ import {
 	CommandGroupData,
 	ParameterData,
 } from "../component/Command/type";
-import { clickElement, openBrowser, replacePage, typeKeyboard } from "./ipc";
+import { clickElement, replacePage, typeKeyboard } from "./ipc";
 
 function applyParameter(
 	command: CommandData,
@@ -34,7 +34,6 @@ export async function executeCommand(
 			await clickElement(browserId, command.selector);
 			return true;
 		case "input":
-			await clickElement(browserId, command.selector);
 			await typeKeyboard(browserId, command.value);
 			return true;
 		case "replacePage":

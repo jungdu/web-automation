@@ -18,7 +18,7 @@ const commandTypes: { type: CommandType; text: string }[] = [
 	},
 	{
 		type: "input",
-		text: "값 입력",
+		text: "키보드 입력",
 	},
 ];
 

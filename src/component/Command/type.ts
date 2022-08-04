@@ -15,7 +15,6 @@ export interface DelayCommand {
 
 export interface InputCommand {
 	type: "input";
-	selector: string;
 	value: string;
 }
 
